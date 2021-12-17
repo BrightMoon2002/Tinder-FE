@@ -45,8 +45,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="#page-top"><img width="110" height="200" src="assets/img/team/LogoFinal2.png"
-                                                      alt="..."/></a>
+        <a class="navbar-brand" href="#page-top"><img src="assets/img/team/LogoFinal2.png"/></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -60,10 +59,10 @@
                 <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 <li class="nav-item">
-                    <button><i class="far fa-user-circle" onclick="showLoginForm()"></i></button>
+                    <button type="button" class="btn btn-primary" onclick="showLoginForm()">Login</button>
                 </li>
                 <li class="nav-item">
-                    <button><i class="fas fa-sign-in-alt" onclick="showRegisterForm()">></i></button>
+                    <button type="button" class="btn btn-success" onclick="showRegisterForm()">Register</button>
                 </li>
             </ul>
         </div>
@@ -76,7 +75,7 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="titleModal">Đăng nhập</h5>
+                <h5 class="modal-title" id="titleModal">Login</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
             <!-- body -->
@@ -94,8 +93,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 form-group">
-                            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="signIn()">Đăng
-                                nhập
+                            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="signIn()">Login
                             </button>
                         </div>
                     </div>
@@ -111,15 +109,15 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="titleModal1">Đăng nhập</h5>
+                <h5 class="modal-title" id="titleModal1">Register</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
             <!-- body -->
             <div class="modal-body">
-                <h4>Bạn là:</h4>
+                <h4>You are:</h4>
                 <div class="text-center">
-                    <button type="button" class="btn btn-outline-secondary" onclick="showCheckerForm()">Khách hàng</button>
-                    <button type="button" class="btn btn-outline-success" onclick="showStaffForm()">Nhân viên</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="showCheckerForm()">Checker</button>
+                    <button type="button" class="btn btn-outline-success" onclick="showStaffForm()">Staff</button>
                 </div>
 
             </div>
@@ -132,7 +130,7 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="titleModal2">Đăng Ký</h5>
+                <h5 class="modal-title" id="titleModal2">Checker Register</h5>
             </div>
             <!-- body -->
             <div class="modal-body">
@@ -200,13 +198,13 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="titleModal3">Đăng Ký</h5>
+                <h5 class="modal-title" id="titleModal3">Staff Register</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
             <!-- body -->
             <div class="modal-body">
                 <h4>
-                    Nhan vien
+                    Staff
                 </h4>
             </div>
         </div>
@@ -232,15 +230,15 @@
                         <span class="fa-stack fa-4x">
                             <img width="180" src="https://cdnmedia.baotintuc.vn/2014/02/14/07/48/1302-kiss.jpg" alt="">
                         </span>
-                <h4 class="my-3 text-center">Hôn Môi</h4>
-                <p class="text-muted">Hôn môi.</p>
+                <h4 class="my-3 text-center">Kiss</h4>
+                <p class="text-muted">Kiss</p>
             </div>
             <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <img width="180" src="https://www.phunu8.vn/PhuNu8DuLieu/PhuNu8HinhAnh/u3411/cach-cam-tay-tiet-lo-ve-moi-quan-he-cua-ban-1.jpg" alt="">
                         </span>
-                <h4 class="my-3 text-center">Nắm tay</h4>
-                <p class="text-muted">Hôn môi.</p>
+                <h4 class="my-3 text-center">Holding Hand</h4>
+                <p class="text-muted">Holding Hand</p>
             </div>
             <div class="col-md-4">
                         <span class="fa-stack fa-4x">
