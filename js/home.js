@@ -39,13 +39,42 @@ function showCheckerForm(){
     $('.modal-backdrop').remove();
     $('#myModal2').modal("show");
 }
-function RegisterAccount(){
+function CheckerRegisterAccount(){
     let username = $('#username1').val();
     let password = $('#password1').val();
     let fullname = $('#fullname1').val();
     let email = $('#email1').val();
     let phone = $('#phone1').val();
-    let status;
+    let newCheckerAccount = {
+        username: username,
+        password: password,
+        fullName: fullname,
+        email: email,
+        phone: phone,
+        status : {
+            id: 1
+        },
+        roles : [
+            {
+            id: 3
+        }
+        ]
+    };
+
+    $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        data: JSON.stringify(newCheckerAccount),
+        url: "http://localhost:8080/api/accounts",
+        success: function (data) {
+            console.log(data)
+        }
+    })
+
+
 }
 function showStaffForm(){
     $('#myModal1').modal('hide');
