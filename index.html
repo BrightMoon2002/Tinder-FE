@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -203,9 +204,134 @@
             </div>
             <!-- body -->
             <div class="modal-body">
-                <h4>
-                    Staff
-                </h4>
+                <div class="modal-body">
+                    <form class="row g-3 needs-validation" novalidate>
+                        <div class="col-md-6">
+                            <label for="username2" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username2" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid username or already exist.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="password2" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password2" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid password.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="fullname2" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullname2" required>
+                            <div class="invalid-feedback">
+                                Please provide a full name.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email2" class="form-label">Email</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                                <input type="text" class="form-control" id="email2" aria-describedby="inputGroupPrepend" required>
+                                <div class="invalid-feedback">
+                                    Email is not correct.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone2" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone2" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid phone.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="invalidCheck2" required>
+                                <label class="form-check-label" for="invalidCheck">
+                                    Agree to terms and conditions
+                                </label>
+                                <div class="invalid-feedback">
+                                    You must agree before submitting.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary" type="submit" onclick="RegisterStaff()">Submit form</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--StaffFromResgister-->
+<div id="myModal4" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModal4">Staff Register</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+            <!-- body -->
+            <div class="modal-body">
+                <div class="modal-body">
+                    <form class="row g-3 needs-validation" novalidate>
+                        <div class="col-md-6">
+                            <label for="username2" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city1" required>
+                            <div class="invalid-feedback">
+                                Please provide a city
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="password2" class="form-label">Description</label>
+                            <input type="password" class="form-control" id="description1" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid password.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="fullname2" class="form-label">Nick Name</label>
+                            <input type="text" class="form-control" id="name1" required>
+                            <div class="invalid-feedback">
+                                Please provide a full name.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone2" class="form-label">DOB</label>
+                            <input type="text" class="form-control" id="dob1" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid phone.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone2" class="form-label">Nationality</label>
+                            <input type="text" class="form-control" id="nationality1" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid phone.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone2" class="form-label">Height</label>
+                            <input type="text" class="form-control" id="height1" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid phone.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone2" class="form-label">Weight</label>
+                            <input type="text" class="form-control" id="weight1" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid phone.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary" type="submit" onclick="RegisterStaff()">Submit form</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
