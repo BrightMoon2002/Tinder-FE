@@ -18,8 +18,15 @@ function signIn() {
         },
         data: JSON.stringify(data),
         success: function (data) {
-            localStorage.setItem("user",JSON.stringify(data));
-            window.location.href = "/viewWS/index.html"
+            if(data.oneRole == '[ROLE_ADMIN]'){
+                localStorage.setItem("user",JSON.stringify(data));
+            }
+            else if(data.oneRole == '[ROLE_STAFF]'){
+                localStorage.setItem("user",JSON.stringify(data));
+            }
+            else if(data.oneRole == '[ROLE_CHECKER]')
+                localStorage.setItem("user",JSON.stringify(data));
+            // window.location.href = "/viewWS/index.html"
         }
     })
 }
@@ -31,6 +38,14 @@ function showCheckerForm(){
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
     $('#myModal2').modal("show");
+}
+function RegisterAccount(){
+    let username = $('#username1').val();
+    let password = $('#password1').val();
+    let fullname = $('#fullname1').val();
+    let email = $('#email1').val();
+    let phone = $('#phone1').val();
+    let status;
 }
 function showStaffForm(){
     $('#myModal1').modal('hide');
