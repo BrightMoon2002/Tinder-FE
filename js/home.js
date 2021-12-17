@@ -70,12 +70,18 @@ function CheckerRegisterAccount(){
         data: JSON.stringify(newCheckerAccount),
         url: "http://localhost:8080/api/accounts",
         success: function (data) {
-            console.log(data)
+            createChecker(data.id)
         }
     })
 
 
 }
+
+function createChecker(id) {
+
+}
+
+
 function showStaffForm(){
     $('#myModal1').modal('hide');
     $('body').removeClass('modal-open');
