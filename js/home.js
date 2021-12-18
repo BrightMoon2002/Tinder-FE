@@ -49,7 +49,7 @@ function signIn() {
                         success: function (checkers) {
                             localStorage.setItem("checkers", JSON.stringify(checkers));
                             localStorage.setItem("user", JSON.stringify(data));
-                            // window.location.href = "/viewWS/index.html"
+                            window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
                         }
                     })
                 }
@@ -85,6 +85,7 @@ function CheckerRegisterAccount(){
         fullName: fullname,
         email: email,
         phone: phone,
+        balance: 0,
         status : {
             id: 2
         },
