@@ -58,6 +58,7 @@ function signIn() {
             }
         }
     })
+    event.preventDefault();
 }
 
 function showRegisterForm() {
@@ -68,23 +69,23 @@ function showCheckerForm() {
     $('#myModal1').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-    $('#myModal2').modal("show");
+    $('#myCheckerAccountForm').modal("show");
 }
 
-function CheckerRegisterAccount() {
-    let username = $('#username1').val();
-    let password = $('#password1').val();
-    let fullname = $('#fullname1').val();
-    let email = $('#email1').val();
-    let phone = $('#phone1').val();
+function CheckerRegisterAccount(){
+    let username = $('#usernameCheckerAccount').val();
+    let password = $('#passwordCheckerAccount').val();
+    let fullname = $('#fullnameCheckerAccount').val();
+    let email = $('#emailCheckerAccount').val();
+    let phone = $('#phoneCheckerAccount').val();
     let newCheckerAccount = {
         username: username,
         password: password,
         fullName: fullname,
         email: email,
         phone: phone,
-        status: {
-            id: 1
+        status : {
+            id: 2
         },
         roles: [
             {
@@ -102,15 +103,70 @@ function CheckerRegisterAccount() {
         data: JSON.stringify(newCheckerAccount),
         url: "http://localhost:8080/api/accounts",
         success: function (data) {
-            createChecker(data.id)
+            showCheckerDetails(data.id)
         }
     })
+
+    event.preventDefault();
 
 
 }
 
-function createChecker(id) {
+function showCheckerDetails(account_id) {
+    $('#myCheckerAccountForm').remove();
+    $('#myCheckerFormModel').modal('show');
+    $('#idAccountChecker').val(account_id);
 
+}
+
+function createChecker() {
+    let name = $('#nameChecker').val();
+    let dob = $('#dobChecker').val();
+    let gender = $('#genderChecker').val();
+    let identity = $('#identityChecker').val();
+    let hobbies = $('#addressChecker').val();
+    let address = $('#addressChecker').val();
+    let city = $('#cityChecker').val();
+    let description = $('#descriptionChecker').val();
+    let url_facebook = $('#facebookChecker').val();
+    let account_id = $('#idAccountChecker').val();
+    let newChecker = {
+        name: name,
+        dob: dob,
+        gender: {
+            id: gender
+        },
+        identity: identity,
+        address: address,
+        hobbies: hobbies,
+        city: city,
+        description: description,
+        url_facebook: url_facebook,
+        account: {
+            id: account_id
+        }
+    }
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: "http://localhost:8080/api/checkers",
+        type: "POST",
+        data: JSON.stringify(newChecker),
+        success: function (data) {
+            $('#myCheckerFormModel').remove();
+            $('#modalCreatedAccountSuccessfully').modal('show');
+        }
+
+    })
+    event.preventDefault();
+}
+
+
+function closeModalCreatedAccountSuccessfully() {
+    $('#modalCreatedAccountSuccessfully').remove();
 }
 
 
@@ -176,7 +232,7 @@ function RegisterAccountStaff() {
                 }
             })
             event.preventDefault();
-        }.error(alert("Bạn nhập sai"))
+        }
 
     })
     event.preventDefault();
@@ -202,7 +258,7 @@ async function upload(file, listimg) {
 function RegisterStaff() {
     let idAccount = $('#idAccount').val()
     let city = $('#city1').val();
-    let description = $('#description').val();
+    let description = $('#description1').val();
     let name = $('#name1').val();
     let dob = $('#dob1').val();
     let nationality = $('#nationality1').val();
@@ -264,7 +320,6 @@ function RegisterStaff() {
 
         }
     })
-
     event.preventDefault();
 }
 

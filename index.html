@@ -7,7 +7,7 @@
     <meta name="author" content=""/>
     <title>Tinder wendy</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico"/>
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -124,13 +124,13 @@
     </div>
 </div>
 
-<!--formregister-->
+<!--formRegister-->
 <div id="myModal1" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="titleModal1">Register</h5>
+                <h5 class="modal-title" id="titleModal1">Checker</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
             <!-- body -->
@@ -145,52 +145,52 @@
         </div>
     </div>
 </div>
-<!--formCheckerRegister-->
-<div id="myModal2" class="modal" tabindex="-1" role="dialog">
+<!--formCheckerAccount-->
+<div id="myCheckerAccountForm" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="titleModal2">Checker Register</h5>
+                <h5 class="modal-title" id="titleCheckerAccountForm">Checker Register</h5>
             </div>
             <!-- body -->
             <div class="modal-body">
 
                 <form class="row g-3 needs-validation" novalidate>
                     <div class="col-md-6">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username1" required>
+                        <label for="usernameCheckerAccount" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="usernameCheckerAccount" required>
                         <div class="invalid-feedback">
                             Please provide a valid username or already exist.
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password1" required>
+                        <label for="passwordCheckerAccount" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="passwordCheckerAccount" required>
                         <div class="invalid-feedback">
                             Please provide a valid password.
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="fullname1" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullname1" required>
+                        <label for="fullnameCheckerAccount" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="fullnameCheckerAccount" required>
                         <div class="invalid-feedback">
                             Please provide a full name.
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="email1" class="form-label">Email</label>
+                        <label for="emailCheckerAccount" class="form-label">Email</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                            <input type="text" class="form-control" id="email1" aria-describedby="inputGroupPrepend" required>
+                            <input type="text" class="form-control" id="emailCheckerAccount" aria-describedby="inputGroupPrepend" required>
                             <div class="invalid-feedback">
                                 Email is not correct.
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="phone1" class="form-label">Phone</label>
-                        <input type="text" class="form-control" id="phone1" required>
+                        <label for="phoneCheckerAccount" class="form-label">Phone</label>
+                        <input type="text" class="form-control" id="phoneCheckerAccount" required>
                         <div class="invalid-feedback">
                             Please provide a valid phone.
                         </div>
@@ -363,7 +363,7 @@
 <!-- Masthead-->
 <header class="masthead">
     <div class="container">
-        <div class="masthead-subheading">Welcome To Checker Duy!</div>
+        <div class="masthead-subheading">Welcome To Tinder Windy!</div>
         <div class="masthead-heading text-uppercase">It's Nice To You</div>
         <a class="btn btn-primary btn-xl text-uppercase" href="#services">Show more our service</a>
     </div>
@@ -372,7 +372,7 @@
 <section class="page-section" id="services">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Our Service</h2>
+            <h2 class="section-heading text-uppercase">Our Bill</h2>
 <!--            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
         </div>
         <div class="row text-center">
@@ -970,6 +970,32 @@
         </div>
     </div>
 </div>
+
+
+<!-------Successfully Created--------------->
+<div class="row">
+    <div class="col-sm-3 container"> <button class="btn btn-success btn-block mb-2" data-toggle="modal" data-target="#modal">Modal Normal</button> </div>
+</div>
+<div id="modalCreatedAccountSuccessfully" class="modal fade" data-backdrop="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title text-md">Message: </div> <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="p-4 text-center">
+                    <p>Please open your mail to verify the account!!</p>
+                </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal" onclick="closeModalCreatedAccountSuccessfully()">Close</button></div>
+        </div>
+    </div>
+</div>
+
+<!-------------------------------->
+
+
+
 <script>
     (function () {
         'use strict'
@@ -996,6 +1022,6 @@
 <!-- Core theme JS-->
 <script src="js/scripts.js"></script>
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-<script src="js/scripts.js"></script>
+
 </body>
 </html>
