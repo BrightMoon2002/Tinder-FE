@@ -20,6 +20,26 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="js/home.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCA8U6itNoalcK5oGif_orzo12EeLEahJI",
+            authDomain: "image-ff946.firebaseapp.com",
+            projectId: "image-ff946",
+            storageBucket: "image-ff946.appspot.com",
+            messagingSenderId: "252032527157",
+            appId: "1:252032527157:web:436dfc17377566f8387a7c",
+            measurementId: "G-S8M6V36H87"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
     <script>
         (function () {
             'use strict'
@@ -195,8 +215,8 @@
         </div>
     </div>
 </div>
-<!--formStaffRegister-->
-<div id="myModal3" class="modal" tabindex="-1" role="dialog">
+<!--formAccountStaff-->
+<div id="showFormAccountStaff" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- header -->
@@ -247,18 +267,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="invalidCheck2" required>
-                                <label class="form-check-label" for="invalidCheck">
-                                    Agree to terms and conditions
-                                </label>
-                                <div class="invalid-feedback">
-                                    You must agree before submitting.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary" type="submit" onclick="RegisterStaff()">Submit form</button>
+                            <button class="btn btn-primary" type="submit" onclick="RegisterAccountStaff()">Next</button>
                         </div>
                     </form>
                 </div>
@@ -268,7 +277,7 @@
 </div>
 
 <!--StaffFromResgister-->
-<div id="myModal4" class="modal" tabindex="-1" role="dialog">
+<div id="showFormRegisterForStaff" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- header -->
@@ -288,49 +297,62 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="password2" class="form-label">Description</label>
-                            <input type="password" class="form-control" id="description1" required>
+                            <label for="description1" class="form-label">Description</label>
+                            <input type="text" class="form-control" id="description1" required>
                             <div class="invalid-feedback">
-                                Please provide a valid password.
+                                Please provide a valid Description.
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="fullname2" class="form-label">Nick Name</label>
                             <input type="text" class="form-control" id="name1" required>
-                            <div class="invalid-feedback">
-                                Please provide a full name.
-                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="phone2" class="form-label">DOB</label>
+                            <label for="dob1" class="form-label">DOB</label>
                             <input type="text" class="form-control" id="dob1" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid phone.
-                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="phone2" class="form-label">Nationality</label>
+                            <label for="nationality1" class="form-label">Nationality</label>
                             <input type="text" class="form-control" id="nationality1" required>
-                            <div class="invalid-feedback">
-                                Please provide a valid phone.
-                            </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="phone2" class="form-label">Height</label>
+                            <label for="height1" class="form-label">Height</label>
                             <input type="text" class="form-control" id="height1" required>
                             <div class="invalid-feedback">
-                                Please provide a valid phone.
+                                Please provide a Height.
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="phone2" class="form-label">Weight</label>
+                            <select id="gender">
+
+                            </select>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="weight1" class="form-label">Weight</label>
                             <input type="text" class="form-control" id="weight1" required>
                             <div class="invalid-feedback">
-                                Please provide a valid phone.
+                                Please provide a Weight.
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <label for="phone2" class="form-label">Upload Ảnh</label>
+                            <input  type="file" id="photo">
+                        </div>
                         <div class="col-12">
-                            <button class="btn btn-primary" type="submit" onclick="RegisterStaff()">Submit form</button>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="invalidCheck2" required>
+                                <label class="form-check-label" for="invalidCheck">
+                                    Agree to terms and conditions
+                                </label>
+                                <div class="invalid-feedback">
+                                    You must agree before submitting.
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="idAccount">
+                        <div class="col-12">
+                            <button class="btn btn-primary" type="submit" onclick="RegisterStaff()">Đăng ký</button>
                         </div>
                     </form>
                 </div>
