@@ -5,7 +5,11 @@
     $('[data-toggle="tooltip"]').tooltip()
 
 })(jQuery);
-
+let currentUser = JSON.parse(localStorage.getItem("user"));
+let currentStaff = JSON.parse(localStorage.getItem("staff"));
+if (currentUser == null || currentStaff == null || currentUser.token == null) {
+    window.location.href = "/front_end/index.html";
+}
 
 function showListBill() {
     $.ajax({
