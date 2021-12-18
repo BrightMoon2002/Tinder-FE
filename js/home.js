@@ -167,6 +167,7 @@ function createChecker() {
 
 function closeModalCreatedAccountSuccessfully() {
     $('#modalCreatedAccountSuccessfully').remove();
+    window.location.href="/Casestudy4_Checker_Duy_FrontEnd/index.html"
 }
 
 
