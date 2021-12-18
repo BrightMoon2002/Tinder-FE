@@ -124,7 +124,7 @@ function createChecker() {
     let dob = $('#dobChecker').val();
     let gender = $('#genderChecker').val();
     let identity = $('#identityChecker').val();
-    let hobbies = $('#addressChecker').val();
+    let hobbies = $('#hobbyChecker').val();
     let address = $('#addressChecker').val();
     let city = $('#cityChecker').val();
     let description = $('#descriptionChecker').val();
@@ -167,6 +167,7 @@ function createChecker() {
 
 function closeModalCreatedAccountSuccessfully() {
     $('#modalCreatedAccountSuccessfully').remove();
+    window.location.href="/Casestudy4_Checker_Duy_FrontEnd/index.html"
 }
 
 
