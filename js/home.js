@@ -3,6 +3,7 @@ function showLoginForm() {
     $('#myModal').modal("show");
 }
 
+
 function signIn() {
     let username = $('#username').val();
     let password = $('#password').val();
@@ -34,7 +35,7 @@ function signIn() {
                         success: function (staff) {
                             localStorage.setItem("staff", JSON.stringify(staff));
                             localStorage.setItem("user", JSON.stringify(data));
-                            // window.location.href = "/viewWS/index.html"
+                            window.location.href = "/front_end/Staff.html"
                         }
                     })
                 } else if (data.oneRole == '[ROLE_CHECKER]') {
@@ -124,7 +125,7 @@ function createChecker() {
     let dob = $('#dobChecker').val();
     let gender = $('#genderChecker').val();
     let identity = $('#identityChecker').val();
-    let hobbies = $('#addressChecker').val();
+    let hobbies = $('#hobbyChecker').val();
     let address = $('#addressChecker').val();
     let city = $('#cityChecker').val();
     let description = $('#descriptionChecker').val();
@@ -167,6 +168,7 @@ function createChecker() {
 
 function closeModalCreatedAccountSuccessfully() {
     $('#modalCreatedAccountSuccessfully').remove();
+    window.location.href="/Casestudy4_Checker_Duy_FrontEnd/index.html"
 }
 
 
@@ -322,4 +324,3 @@ function RegisterStaff() {
     })
     event.preventDefault();
 }
-
