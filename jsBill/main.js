@@ -6,15 +6,32 @@
 
 })(jQuery);
 let currentUser = JSON.parse(localStorage.getItem("user"));
-let currentStaff = JSON.parse(localStorage.getItem("staff"));
-if (currentUser == null || currentStaff == null || currentUser.token == null) {
+if (currentUser == null || currentUser.token == null) {
     window.location.href = "/front_end/index.html";
+}
+
+function checkToken() {
+    let currentUser = JSON.parse(localStorage.getItem("user"));
+    if (currentUser == null || currentUser.token == null) {
+        window.location.href = "/front_end/index.html";
+    }
+}
+
+function logout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("checker");
+    checkAut();
 }
 
 function showListBill() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/bills",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: function (data) {
             let contentBill = '<thead>\n' +
                 '   <tr>\n' +
@@ -76,7 +93,8 @@ function showView(id) {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         type: "GET",
         url: "http://localhost:8080/api/bills/view/" + idBill,
@@ -106,7 +124,8 @@ function editStatusAccept(id) {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         type: "PUT",
         url: "http://localhost:8080/api/bills/editStatus/" + idBill,
@@ -119,6 +138,11 @@ function showAllAccount() {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/accounts",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         success: function (data) {
             let contentBill = '<thead>\n' +
                 '   <tr>\n' +
@@ -172,7 +196,8 @@ function showViewAccount(id) {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         type: "GET",
         url: "http://localhost:8080/api/accounts/" + idAccount,
@@ -207,7 +232,8 @@ function editBlockAccount(id, id2) {
         $.ajax({
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + currentUser.token
             },
             type: "PUT",
             url: "http://localhost:8080/api/accounts/blockAccount/" + idAccount,
@@ -218,7 +244,8 @@ function editBlockAccount(id, id2) {
         $.ajax({
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + currentUser.token
             },
             type: "PUT",
             url: "http://localhost:8080/api/accounts/unBlockAccount/" + idAccount,
