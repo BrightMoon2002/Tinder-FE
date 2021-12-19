@@ -116,6 +116,7 @@ function CheckerRegisterAccount() {
                    myFunctionUserName();
                    myFunctionPassword();
                    myFunctionFullName();
+                   myFunctionAgreeForm();
                 }
 
         }
@@ -231,18 +232,27 @@ function RegisterAccountStaff() {
                 url: "http://localhost:8080/api/genders",
                 type: "GET",
                 success: function (data) {
-                    let listTypes = [];
-                    listTypes = data;
-                    let userSelect = document.getElementById("gender");
-                    listTypes.forEach(function (option) {
-                        var opt = document.createElement('option');
-                        opt.value = option.id;
-                        opt.innerHTML = option.name;
-                        userSelect.appendChild(opt);
-                        $('#idAccount').val(idAccount);
-                        $('#showFormAccountStaff').modal('hide');
-                        $('#showFormRegisterForStaff').modal('show');
-                    })
+                    if (a() == true) {
+                        let listTypes = [];
+                        listTypes = data;
+                        let userSelect = document.getElementById("gender");
+                        listTypes.forEach(function (option) {
+                            var opt = document.createElement('option');
+                            opt.value = option.id;
+                            opt.innerHTML = option.name;
+                            userSelect.appendChild(opt);
+                            $('#idAccount').val(idAccount);
+                            $('#showFormAccountStaff').modal('hide');
+                            $('#showFormRegisterForStaff').modal('show');
+                        })
+                    } else {
+                        myFunctionPhoneStaff();
+                        myFunctionEmailStaff();
+                        myFunctionUserNameStaff();
+                        myFunctionPasswordStaff();
+                        myFunctionFullNameStaff();
+                    }
+
                 }
             })
             event.preventDefault();

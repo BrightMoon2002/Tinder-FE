@@ -1,9 +1,15 @@
 let form = document.getElementById('myCheckerAccountForm');
 let email = document.getElementById('emailCheckerAccount');
+let email1 = document.getElementById('email2');
 let userName = document.getElementById('usernameCheckerAccount');
+let userName1 = document.getElementById('username2');
 let password = document.getElementById('passwordCheckerAccount');
+let password1 = document.getElementById('password2');
 let fullName = document.getElementById('fullnameCheckerAccount');
-let phone = document.getElementById('emailCheckerAccount');
+let fullName1 = document.getElementById('fullname2');
+let phone = document.getElementById('phoneCheckerAccount');
+let phone1 = document.getElementById('phone2');
+let checkbox = document.getElementsByName('invalidCheckBox');
 let error = document.querySelector('.error-404');
 
 
@@ -36,12 +42,19 @@ function a() {
         return false;
     }
 }
+function b() {
+    if (email1.validity.valid && userName1.validity.valid && fullName1.validity.valid && password1.validity.valid && !phone1.validity.valid ) {
+        return true;
+    } else {
+        return false;
+    }
+}
 function myFunctionPhone() {
     // Get the value of the input field with id="numb"
     let x = document.getElementById("phoneCheckerAccount").value;
     // If x is Not a Number or less than one or greater than 10
     let text;
-    if (isNaN(x) || x < 1 || x > 10) {
+    if (!phone.validity.valid) {
         text = "Input not valid";
     } else {
         text = "";
@@ -49,11 +62,21 @@ function myFunctionPhone() {
     document.getElementById("error").innerHTML = text;
 
 }
-
-function myFunctionEmail() {
+function myFunctionPhoneStaff() {
     // Get the value of the input field with id="numb"
     let x = document.getElementById("phoneCheckerAccount").value;
     // If x is Not a Number or less than one or greater than 10
+    let text;
+    if (!phone1.validity.valid) {
+        text = "Input not valid";
+    } else {
+        text = "";
+    }
+    document.getElementById("error7").innerHTML = text;
+
+}
+
+function myFunctionEmail() {
     let text;
     if (!email.validity.valid) {
         text = "Input not valid";
@@ -64,12 +87,20 @@ function myFunctionEmail() {
 
 }
 
-function myFunctionUserName() {
-    // Get the value of the input field with id="numb"
-    let x = document.getElementById("phoneCheckerAccount").value;
-    // If x is Not a Number or less than one or greater than 10
+function myFunctionEmailStaff() {
     let text;
     if (!email.validity.valid) {
+        text = "Input not valid";
+    } else {
+        text = "";
+    }
+    document.getElementById("error6").innerHTML = text;
+
+}
+
+function myFunctionUserName() {
+    let text;
+    if (!userName.validity.valid) {
         text = "Input not valid";
     } else {
         text = "";
@@ -78,12 +109,20 @@ function myFunctionUserName() {
 
 }
 
-function myFunctionPassword() {
-    // Get the value of the input field with id="numb"
-    let x = document.getElementById("phoneCheckerAccount").value;
-    // If x is Not a Number or less than one or greater than 10
+function myFunctionUserNameStaff() {
     let text;
-    if (!email.validity.valid) {
+    if (!userName.validity.valid) {
+        text = "Input not valid";
+    } else {
+        text = "";
+    }
+    document.getElementById("error10").innerHTML = text;
+
+}
+
+function myFunctionPassword() {
+    let text;
+    if (!password.validity.valid) {
         text = "Input not valid";
     } else {
         text = "";
@@ -92,16 +131,46 @@ function myFunctionPassword() {
 
 }
 
-function myFunctionFullName() {
-    // Get the value of the input field with id="numb"
-    let x = document.getElementById("phoneCheckerAccount").value;
-    // If x is Not a Number or less than one or greater than 10
+function myFunctionPasswordStaff() {
     let text;
-    if (!email.validity.valid) {
+    if (!password1.validity.valid) {
+        text = "Input not valid";
+    } else {
+        text = "";
+    }
+    document.getElementById("error9").innerHTML = text;
+
+}
+
+function myFunctionFullName() {
+    let text;
+    if (!fullName.validity.valid) {
         text = "Input not valid";
     } else {
         text = "";
     }
     document.getElementById("error4").innerHTML = text;
+
+}
+
+function myFunctionFullNameStaff() {
+    let text;
+    if (!fullName1.validity.valid) {
+        text = "Input not valid";
+    } else {
+        text = "";
+    }
+    document.getElementById("error8").innerHTML = text;
+
+}
+
+function myFunctionAgreeForm() {
+    let text;
+    if (checkbox == false) {
+        text = "You need agree";
+    } else {
+        text = "";
+    }
+    document.getElementById("error5").innerHTML = text;
 
 }
