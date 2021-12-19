@@ -3,6 +3,7 @@ function showLoginForm() {
     $('#myModal').modal("show");
 }
 
+
 function signIn() {
     let username = $('#username').val();
     let password = $('#password').val();
@@ -34,7 +35,7 @@ function signIn() {
                         success: function (staff) {
                             localStorage.setItem("staff", JSON.stringify(staff));
                             localStorage.setItem("user", JSON.stringify(data));
-                            // window.location.href = "/viewWS/index.html"
+                            window.location.href = "/front_end/Staff.html"
                         }
                     })
                 } else if (data.oneRole == '[ROLE_CHECKER]') {
@@ -324,4 +325,3 @@ function RegisterStaff() {
     })
     event.preventDefault();
 }
-

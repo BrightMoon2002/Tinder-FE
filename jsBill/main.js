@@ -5,7 +5,11 @@
     $('[data-toggle="tooltip"]').tooltip()
 
 })(jQuery);
-
+let currentUser = JSON.parse(localStorage.getItem("user"));
+let currentStaff = JSON.parse(localStorage.getItem("staff"));
+if (currentUser == null || currentStaff == null || currentUser.token == null) {
+    window.location.href = "/front_end/index.html";
+}
 
 function showListBill() {
     $.ajax({
@@ -32,6 +36,7 @@ function showListBill() {
         }
     });
 
+
 }
 
 function getBill(bill) {
@@ -51,7 +56,7 @@ function getBill(bill) {
         `<td>${bill.checkerName}</td>\n` +
         `<td>${bill.staffName}</td>\n` +
         `<td>${bill.amount}</td>\n` +
-        `<td class="status"><button style="border: none; border-radius: 200px; width: 73,5px" id="editStatus" value="${bill.id}" onclick="editStatusAccept(this)" ><span class="active">${bill.billStatusName}</span></button></td>\n` +
+        `<td class="status"><button style="border: none; border-radius: 200px; background-color: white" id="editStatus" value="${bill.id}" onclick="editStatusAccept(this)" ><span class="active">${bill.billStatusName}</span></button></td>\n` +
         `<td >${bill.content}</td>\n` +
         `<td>\n` +
         ` <button type="button" class="close" data-dismiss="alert" aria-label="Close">\n` +
@@ -64,11 +69,10 @@ function getBill(bill) {
         `</button>` +
         ` </td>\n` +
         `</tr>`;
-
 }
 
 function showView(id) {
-    let idBill = $('#viewOne').val();
+    let idBill = id.getAttribute("value");
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -98,17 +102,128 @@ function showView(id) {
 }
 
 function editStatusAccept(id) {
-    let idBill = $('#editStatus').val();
+    let idBill = id.getAttribute("value");
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         type: "PUT",
-        url: "http://localhost:8080/api/bill/editStatus/" + idBill,
-        success : showListBill
+        url: "http://localhost:8080/api/bills/editStatus/" + idBill,
+        success: showListBill
     });
     event.preventDefault();
 }
 
+function showAllAccount() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/accounts",
+        success: function (data) {
+            let contentBill = '<thead>\n' +
+                '   <tr>\n' +
+                '    <th>&nbsp;</th>\n' +
+                '   <th style="color: red">Id</th>\n' +
+                '      <th style="color: red">UserName</th>\n' +
+                '     <th style="color: red">Balance</th>\n' +
+                '     <th style="color: red">Email</th>\n' +
+                '     <th style="color: red">Phone</th>\n' +
+                '     <th style="color: red">status</th>\n' +
+                '      <th style="color: red">&nbsp;</th>\n' +
+                '      <th style="color: red">&nbsp;</th>\n' +
+                '   </tr>\n' +
+                '  </thead>\n';
+            for (let i = 0; i < data.length; i++) {
+                contentBill += getAccount(data[i]);
+            }
+            document.getElementById('bills').innerHTML = contentBill;
+        }
+    });
+    event.preventDefault();
+}
 
+function getAccount(data) {
+    return `<tr class="alert" role="alert">\n` +
+        `<td>\n` +
+        `<label class="checkbox-wrap checkbox-primary">\n` +
+        `<input type="checkbox" checked>\n` +
+        `<span class="checkmark"></span>\n` +
+        `</label>\n` +
+        `</td>\n` +
+        `<td class="d-flex align-items-center">\n` +
+        `<div class="pl-3 email">\n` +
+        `<span>${data.id}</span>\n` +
+        `<span>Begin: ${data.dateSignIn}</span>\n` +
+        `<td>${data.username}</td>\n` +
+        `</div>\n` +
+        `</td>\n` +
+        `<td>${data.balance}</td>\n` +
+        `<td>${data.email}</td>\n` +
+        `<td>${data.phone}</td>\n` +
+        `<td class="status"><button style="border: none; width: 100px; background-color: white" id="editStatus" onclick="editBlockAccount(this)"  idAccount="${data.id}" value="${data.status.id}" ><span class="active">${data.status.name}</span></button></td>\n` +
+        `<td>\n` +
+        `<button id="viewOne" class="close" data-dismiss="alert" onclick="showViewAccount(this)" value="${data.id}"><span aria-hidden="true">View</span></button>` +
+        ` </td>\n` +
+        `</tr>`;
+}
+
+function showViewAccount(id) {
+    let idAccount = id.getAttribute("value");
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:8080/api/accounts/" + idAccount,
+        success: function (data) {
+            let contentView = '<thead>\n' +
+                '   <tr>\n' +
+                '    <th>&nbsp;</th>\n' +
+                '   <th style="color: red">Id</th>\n' +
+                '      <th style="color: red">UserName</th>\n' +
+                '     <th style="color: red">Password</th>\n' +
+                '     <th style="color: red">Balance</th>\n' +
+                '     <th style="color: red">Email</th>\n' +
+                '     <th style="color: red">FullName</th>\n' +
+
+                '     <th style="color: red">Phone</th>\n' +
+                '     <th style="color: red">status</th>\n' +
+                '      <th style="color: red">&nbsp;</th>\n' +
+                '      <th style="color: red">&nbsp;</th>\n' +
+                '   </tr>\n' +
+                '  </thead>\n';
+            contentView = contentView + getAccount(data);
+            document.getElementById('bills').innerHTML = contentView;
+        }
+    });
+    event.preventDefault();
+}
+
+function editBlockAccount(id, id2) {
+    let idStatus = id.getAttribute("value");
+    let idAccount = id.getAttribute("idAccount")
+    if (idStatus == 1 || idStatus == 2) {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PUT",
+            url: "http://localhost:8080/api/accounts/blockAccount/" + idAccount,
+            success: showAllAccount
+        });
+        event.preventDefault();
+    } else {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PUT",
+            url: "http://localhost:8080/api/accounts/unBlockAccount/" + idAccount,
+            success: showAllAccount
+        });
+        event.preventDefault();
+    }
+}
