@@ -71,7 +71,7 @@ function getAllStaffsForChecker() {
                     '                                    <img class="img-fluid" src="'+data[i].avatarUrl3+'" alt="..."/>' +
                     '                                </li>\n' +
                     '                            </ul>\n' +
-                    '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">\n' +
+                    '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff('+data[i].id+')">\n' +
                     '                                \n' +
                     '                                Order\n' +
                     '                            </button>\n' +
@@ -121,10 +121,73 @@ function getStaffOptionsId(id) {
 }
 
 
-function getBillByCheckerId(id) {
+
+function showOrderStaff(id) {
+
+    let currentChecker = JSON.parse(localStorage.getItem("checkers"))
+
     $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/api/bills/showByChecker/" + id,
+        type: "POST",
+        url: "http://localhost:8080/api/bills/showByChecker/" + currentChecker.id,
+        success: function (data) {
+
+            let content = '\n' +
+                '                <form class="row g-3 needs-validation" novalidate>\n' +
+                '                    <div class="col-md-6">\n' +
+                '                        <label for="dateOrder" class="form-label">Date Order</label>\n' +
+                '                        <input type="datetime-local" class="form-control" id="dateOrder" required>\n' +
+                '                        <div class="invalid-feedback">\n' +
+                '                            Please provide a valid date.\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="col-md-6">\n' +
+                '                        <label for="dateEnd" class="form-label">Date End</label>\n' +
+                '                        <input type="datetime-local" class="form-control" id="dateEnd" required>\n' +
+                '                        <div class="invalid-feedback">\n' +
+                '                            Please provide a valid date.\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="col-md-6">\n' +
+                '                        <label for="fullnameCheckerAccount" class="form-label">Full Name</label>\n' +
+                '                        <input type="text" class="form-control" id="fullnameCheckerAccount" required>\n' +
+                '                        <div class="invalid-feedback">\n' +
+                '                            Please provide a full name.\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="col-md-6">\n' +
+                '                        <label for="emailCheckerAccount" class="form-label">Email</label>\n' +
+                '                        <div class="input-group has-validation">\n' +
+                '                            <span class="input-group-text" id="inputGroupPrepend">@</span>\n' +
+                '                            <input type="text" class="form-control" id="emailCheckerAccount" aria-describedby="inputGroupPrepend" required>\n' +
+                '                            <div class="invalid-feedback">\n' +
+                '                                Email is not correct.\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="col-md-6">\n' +
+                '                        <label for="phoneCheckerAccount" class="form-label">Phone</label>\n' +
+                '                        <input type="text" class="form-control" id="phoneCheckerAccount" required>\n' +
+                '                        <div class="invalid-feedback">\n' +
+                '                            Please provide a valid phone.\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="col-12">\n' +
+                '                        <div class="form-check">\n' +
+                '                            <input class="form-check-input" type="checkbox" id="invalidCheck" required>\n' +
+                '                            <label class="form-check-label" for="invalidCheck">\n' +
+                '                                Agree to terms and conditions\n' +
+                '                            </label>\n' +
+                '                            <div class="invalid-feedback">\n' +
+                '                                You must agree before submitting.\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="col-12">\n' +
+                '                        <button class="btn btn-primary" type="submit" onclick="CheckerRegisterAccount()">Submit form</button>\n' +
+                '                    </div>\n' +
+                '                </form>'
+
+        }
 
     })
 }
