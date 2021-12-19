@@ -56,8 +56,9 @@ function signIn() {
                         }
                     })
                 }
-            } else {
-                alert("Tai khoan cua ban dang cho xac nhan")
+            }
+            else {
+                alert("Your account has not verified yet!!")
             }
         }
     })
