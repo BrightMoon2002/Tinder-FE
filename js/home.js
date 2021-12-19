@@ -50,11 +50,13 @@ function signIn() {
                             localStorage.setItem("checkers", JSON.stringify(checkers));
                             localStorage.setItem("user", JSON.stringify(data));
                             window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
+                        },
+                        error: function () {
+                            window.location.href = "Casestudy4_Checker_Duy_FrontEnd/error-404.html"
                         }
                     })
                 }
-            }
-            else {
+            } else {
                 alert("Tai khoan cua ban dang cho xac nhan")
             }
         }
@@ -73,7 +75,7 @@ function showCheckerForm() {
     $('#myCheckerAccountForm').modal("show");
 }
 
-function CheckerRegisterAccount(){
+function CheckerRegisterAccount() {
     let username = $('#usernameCheckerAccount').val();
     let password = $('#passwordCheckerAccount').val();
     let fullname = $('#fullnameCheckerAccount').val();
@@ -86,7 +88,7 @@ function CheckerRegisterAccount(){
         email: email,
         phone: phone,
         balance: 0,
-        status : {
+        status: {
             id: 2
         },
         roles: [
@@ -105,7 +107,10 @@ function CheckerRegisterAccount(){
         data: JSON.stringify(newCheckerAccount),
         url: "http://localhost:8080/api/accounts",
         success: function (data) {
-            showCheckerDetails(data.id)
+                if (a() == true) {
+                    showCheckerDetails(data.id)
+                }
+
         }
     })
 
@@ -118,7 +123,6 @@ function showCheckerDetails(account_id) {
     $('#myCheckerAccountForm').remove();
     $('#myCheckerFormModel').modal('show');
     $('#idAccountChecker').val(account_id);
-
 }
 
 function createChecker() {
@@ -169,7 +173,7 @@ function createChecker() {
 
 function closeModalCreatedAccountSuccessfully() {
     $('#modalCreatedAccountSuccessfully').remove();
-    window.location.href="/Casestudy4_Checker_Duy_FrontEnd/index.html"
+    window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/index.html"
 }
 
 
