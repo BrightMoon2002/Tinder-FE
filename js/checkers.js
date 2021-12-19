@@ -150,27 +150,24 @@ function showOrderStaff(staffId) {
 
                             for (let i=0; i<optionStaff.length;i++) {
                                 optionsChoice += '<div class="form-check form-switch">\n' +
-                                    '  <input class="form-check-input" type="checkbox" id="optionStaff'+optionStaff[i].id+'" name="optionSelect" value="'+optionStaff[i].id+'">\n' +
+                                    '  <input class="form-check-input" type="checkbox" id="optionStaff'+optionStaff[i].option.id+'" name="optionSelect" value="'+optionStaff[i].option.id+'">\n' +
                                     '  <label class="form-check-label" for="flexSwitchCheckChecked">'+optionStaff[i].option.name+' - '+formatToCurrency(optionStaff[i].option.price)+'</label>\n' +
                                     '</div>'
 
                             }
 
-
-
-
                             let content = '\n' +
                                 '                <form class="row g-3 needs-validation" novalidate>\n' +
                                 '                    <div class="col-md-6">\n' +
-                                '                        <label for="dateOrder" class="form-label">Date Order</label>\n' +
-                                '                        <input type="datetime-local" class="form-control" id="dateOrder" required>\n' +
+                                '                        <label for="dateOrder" class="form-label">Time Order</label>\n' +
+                                '                        <input type="time" step="3600000" class="form-control" id="timeOrder" required>\n' +
                                 '                        <div class="invalid-feedback">\n' +
                                 '                            Please provide a valid date.\n' +
                                 '                        </div>\n' +
                                 '                    </div>\n' +
                                 '                    <div class="col-md-6">\n' +
-                                '                        <label for="dateEnd" class="form-label">Date End</label>\n' +
-                                '                        <input type="datetime-local" class="form-control" id="dateEnd" required>\n' +
+                                '                        <label for="dateEnd" class="form-label">Time End</label>\n' +
+                                '                        <input type="time" step="3600000" class="form-control" id="timeEnd"  required>\n' +
                                 '                        <div class="invalid-feedback">\n' +
                                 '                            Please provide a valid date.\n' +
                                 '                        </div>\n' +
@@ -239,14 +236,27 @@ function submitOrder() {
         choices.push(checkbox[i].value)
     }
 
-    let dateOrder = document.querySelector("#dateOrder").value;
-    let dateEnd = document.querySelector("#dateEnd").value;
+    console.log("mmmmm " + choices)
+
+    let dateOrder = document.querySelector("#timeOrder").value;
+    let today = new Date();
+
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear();
+    let timeOrder = yyyy + '-' + mm + '-' + dd +'T'+dateOrder;
+
+
+
+
+    let dateEnd = document.querySelector("#timeEnd").value;
+    let timeEnd = yyyy + '-' + mm + '-' + dd +'T'+dateEnd;
     let staffClickedId = document.querySelector("#staffClickedId").value;
     let checkerClickedId = document.querySelector("#checkerClickedId").value;
 
     let newBill = {
-        dateOrder: dateOrder,
-        dateEnd: dateEnd,
+        dateOrder: timeOrder,
+        dateEnd: timeEnd,
         staff :{
             id: staffClickedId
         },
@@ -267,11 +277,12 @@ function submitOrder() {
         type: "POST",
         url: "http://localhost:8080/api/bills",
         data: JSON.stringify(newBill),
-        success: function (data) {
+        success: function (bill) {
+            let amount = 0;
             for (let i=0; i< choices.length; i++) {
                 let newBillOption = {
                     bill: {
-                        id: data.id
+                        id: bill.id
                     },
                     option: {
                         id: choices[i]
@@ -286,14 +297,97 @@ function submitOrder() {
                     type: "POST",
                     url: "http://localhost:8080/api/billOptions",
                     data: JSON.stringify(newBillOption),
-                    success: function (result) {
-                        console.log(result)
+                    success: function (billOption) {
+                        console.log(billOption)
+                       $.ajax ({
+                           headers: {
+                               'Accept': 'application/json',
+                               'Content-Type': 'application/json'
+                               // 'Authorization': 'Bearer ' + currentUser.token
+                           },
+                           type: "GET",
+                           url: "http://localhost:8080/api/options/" + billOption.option.id,
+                           success: function (optionsGet) {
+                                amount += optionsGet.price
+                               console.log("amountlllll " + amount)
+
+                           }
+                       });
                     }
-                })
+                });
             }
+
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    // 'Authorization': 'Bearer ' + currentUser.token
+                },
+                type: "GET",
+                url: "http://localhost:8080/api/bills/hour/" + bill.id,
+                success: function (hourDiff) {
+                    amount = hourDiff*amount
+
+                    $.ajax({
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                            // 'Authorization': 'Bearer ' + currentUser.token
+                        },
+                        type: "PUT",
+                        url: "http://localhost:8080/api/bills/amount/" + bill.id +"/" + amount,
+                        success: function (amountSet) {
+                            $('#modalCreatedAccountSuccessfully').modal('show');
+                            window.location.href="/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
+                        }
+                    })
+                }
+            });
+
+
         }
     });
     event.preventDefault();
+}
+
+function getBillList() {
+
+    $.ajax({
+
+    })
+
+
+
+
+    let content = '<table class="table">\n' +
+        '  <thead>\n' +
+        '    <tr>\n' +
+        '      <th scope="col">#</th>\n' +
+        '      <th scope="col">First</th>\n' +
+        '      <th scope="col">Last</th>\n' +
+        '      <th scope="col">Handle</th>\n' +
+        '    </tr>\n' +
+        '  </thead>\n' +
+        '  <tbody>\n' +
+        '    <tr>\n' +
+        '      <th scope="row">1</th>\n' +
+        '      <td>Mark</td>\n' +
+        '      <td>Otto</td>\n' +
+        '      <td>@mdo</td>\n' +
+        '    </tr>\n' +
+        '    <tr>\n' +
+        '      <th scope="row">2</th>\n' +
+        '      <td>Jacob</td>\n' +
+        '      <td>Thornton</td>\n' +
+        '      <td>@fat</td>\n' +
+        '    </tr>\n' +
+        '    <tr>\n' +
+        '      <th scope="row">3</th>\n' +
+        '      <td colspan="2">Larry the Bird</td>\n' +
+        '      <td>@twitter</td>\n' +
+        '    </tr>\n' +
+        '  </tbody>\n' +
+        '</table>'
 }
 
 getAllStaffsForChecker()
