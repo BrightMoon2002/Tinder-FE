@@ -1,4 +1,6 @@
-
+// let currentUser = JSON.parse(localStorage.getItem("user"));
+// let currentStaff = JSON.parse(localStorage.getItem("staff"));
+// if (currentUser == null || currentStaff == null || currentUser.token == null) {
 
 
 
@@ -122,77 +124,176 @@ function getStaffOptionsId(id) {
 
 
 
-function showOrderStaff(id) {
+function showOrderStaff(staffId) {
 
     let currentChecker = JSON.parse(localStorage.getItem("checkers"))
 
     $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/api/bills/showByChecker/" + currentChecker.id,
-        success: function (data) {
+        type: "GET",
+        url: "http://localhost:8080/api/checkers/" + currentChecker.id,
+        success: function (checker) {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/api/staffs/" + staffId,
+                success: function (staffClicked) {
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost:8080/api/staffoption/staff/" + staffId,
+                        success: function (optionStaff) {
 
-            let content = '\n' +
-                '                <form class="row g-3 needs-validation" novalidate>\n' +
-                '                    <div class="col-md-6">\n' +
-                '                        <label for="dateOrder" class="form-label">Date Order</label>\n' +
-                '                        <input type="datetime-local" class="form-control" id="dateOrder" required>\n' +
-                '                        <div class="invalid-feedback">\n' +
-                '                            Please provide a valid date.\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '                    <div class="col-md-6">\n' +
-                '                        <label for="dateEnd" class="form-label">Date End</label>\n' +
-                '                        <input type="datetime-local" class="form-control" id="dateEnd" required>\n' +
-                '                        <div class="invalid-feedback">\n' +
-                '                            Please provide a valid date.\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '                    <div class="col-md-6">\n' +
-                '                        <label for="fullnameCheckerAccount" class="form-label">Full Name</label>\n' +
-                '                        <input type="text" class="form-control" id="fullnameCheckerAccount" required>\n' +
-                '                        <div class="invalid-feedback">\n' +
-                '                            Please provide a full name.\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '                    <div class="col-md-6">\n' +
-                '                        <label for="emailCheckerAccount" class="form-label">Email</label>\n' +
-                '                        <div class="input-group has-validation">\n' +
-                '                            <span class="input-group-text" id="inputGroupPrepend">@</span>\n' +
-                '                            <input type="text" class="form-control" id="emailCheckerAccount" aria-describedby="inputGroupPrepend" required>\n' +
-                '                            <div class="invalid-feedback">\n' +
-                '                                Email is not correct.\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '                    <div class="col-md-6">\n' +
-                '                        <label for="phoneCheckerAccount" class="form-label">Phone</label>\n' +
-                '                        <input type="text" class="form-control" id="phoneCheckerAccount" required>\n' +
-                '                        <div class="invalid-feedback">\n' +
-                '                            Please provide a valid phone.\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '                    <div class="col-12">\n' +
-                '                        <div class="form-check">\n' +
-                '                            <input class="form-check-input" type="checkbox" id="invalidCheck" required>\n' +
-                '                            <label class="form-check-label" for="invalidCheck">\n' +
-                '                                Agree to terms and conditions\n' +
-                '                            </label>\n' +
-                '                            <div class="invalid-feedback">\n' +
-                '                                You must agree before submitting.\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                    </div>\n' +
-                '                    <div class="col-12">\n' +
-                '                        <button class="btn btn-primary" type="submit" onclick="CheckerRegisterAccount()">Submit form</button>\n' +
-                '                    </div>\n' +
-                '                </form>'
+                            const formatToCurrency = amount => {
+                                return  amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") + " VND";
+                            };
+
+
+                            let optionsChoice = ""
+
+                            for (let i=0; i<optionStaff.length;i++) {
+                                optionsChoice += '<div class="form-check form-switch">\n' +
+                                    '  <input class="form-check-input" type="checkbox" id="optionStaff'+optionStaff[i].id+'" name="optionSelect" value="'+optionStaff[i].id+'">\n' +
+                                    '  <label class="form-check-label" for="flexSwitchCheckChecked">'+optionStaff[i].option.name+' - '+formatToCurrency(optionStaff[i].option.price)+'</label>\n' +
+                                    '</div>'
+
+                            }
+
+
+
+
+                            let content = '\n' +
+                                '                <form class="row g-3 needs-validation" novalidate>\n' +
+                                '                    <div class="col-md-6">\n' +
+                                '                        <label for="dateOrder" class="form-label">Date Order</label>\n' +
+                                '                        <input type="datetime-local" class="form-control" id="dateOrder" required>\n' +
+                                '                        <div class="invalid-feedback">\n' +
+                                '                            Please provide a valid date.\n' +
+                                '                        </div>\n' +
+                                '                    </div>\n' +
+                                '                    <div class="col-md-6">\n' +
+                                '                        <label for="dateEnd" class="form-label">Date End</label>\n' +
+                                '                        <input type="datetime-local" class="form-control" id="dateEnd" required>\n' +
+                                '                        <div class="invalid-feedback">\n' +
+                                '                            Please provide a valid date.\n' +
+                                '                        </div>\n' +
+                                '                    </div>\n' +
+                                '                    <div class="col-md-6">\n' +
+                                '                       <h6>Checker Name: </h6>\n' +
+                                '                       <input type="hidden" id="checkerClickedId" value="'+checker.id+'"></input>\n' +
+                                '                       <p>'+checker.name+'</p>\n' +
+                                '                    </div>\n' +
+                                '                    <div class="col-md-6">\n' +
+                                '                       <h6>Staff Name: </h6>\n' +
+                                '                       <input type="hidden" id="staffClickedId" value="'+staffClicked.id+'"></input>\n' +
+                                '                       <p>'+staffClicked.name+'</p>\n' +
+                                '                    </div>\n' +
+                                '                    <div class="col-md-12">\n' +
+                                '                            <h5>Services: </h5>' +
+                                                            optionsChoice   +
+                                '                    </div>\n' +
+                                '                    <div class="col-12">\n' +
+                                '                        <div class="form-check">\n' +
+                                '                            <input class="form-check-input" type="checkbox" id="invalidCheck" required>\n' +
+                                '                            <label class="form-check-label" for="invalidCheck">\n' +
+                                '                                Agree to terms and conditions\n' +
+                                '                            </label>\n' +
+                                '                            <div class="invalid-feedback">\n' +
+                                '                                You must agree before submitting.\n' +
+                                '                            </div>\n' +
+                                '                        </div>\n' +
+                                '                    </div>\n' +
+                                '                    <div class="col-12">\n' +
+                                '                        <button class="btn btn-primary" type="submit" onclick="submitOrder()">Submit Order</button>\n' +
+                                '                    </div>\n' +
+                                '                </form>'
+
+
+                            document.getElementById("billCreatingFormModal").innerHTML = content
+
+
+
+                        }
+                    });
+
+
+
+
+                }
+            });
+
+
 
         }
 
-    })
+    });
+
+    $("#myCheckerBillCreatingForm").modal("show");
+
+
 }
 
+function submitOrder() {
+    let checkbox = document.getElementsByName('optionSelect');
 
+    let choices = []
+    for (let i=0; i< checkbox.length; i++) {
+        if (checkbox[i].checked === true)
+        choices.push(checkbox[i].value)
+    }
 
+    let dateOrder = document.querySelector("#dateOrder").value;
+    let dateEnd = document.querySelector("#dateEnd").value;
+    let staffClickedId = document.querySelector("#staffClickedId").value;
+    let checkerClickedId = document.querySelector("#checkerClickedId").value;
+
+    let newBill = {
+        dateOrder: dateOrder,
+        dateEnd: dateEnd,
+        staff :{
+            id: staffClickedId
+        },
+        checker: {
+            id: checkerClickedId
+        },
+        billStatus: {
+            id: 1
+        }
+    }
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            // 'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "POST",
+        url: "http://localhost:8080/api/bills",
+        data: JSON.stringify(newBill),
+        success: function (data) {
+            for (let i=0; i< choices.length; i++) {
+                let newBillOption = {
+                    bill: {
+                        id: data.id
+                    },
+                    option: {
+                        id: choices[i]
+                    }
+                }
+                $.ajax ({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        // 'Authorization': 'Bearer ' + currentUser.token
+                    },
+                    type: "POST",
+                    url: "http://localhost:8080/api/billOptions",
+                    data: JSON.stringify(newBillOption),
+                    success: function (result) {
+                        console.log(result)
+                    }
+                })
+            }
+        }
+    });
+    event.preventDefault();
+}
 
 getAllStaffsForChecker()
