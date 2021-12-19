@@ -1,3 +1,5 @@
+// import {runChart} from './chart.js'
+// runChart();
 let currentUser = JSON.parse(localStorage.getItem("user"));
 let currentStaff = JSON.parse(localStorage.getItem("staff"));
 if (currentUser == null || currentStaff == null || currentUser.token == null) {
@@ -236,9 +238,12 @@ function getAllBillPending(data) {
 <td>
     <button type="button" class="btn btn-primary" onclick="setStatusPendingToCancel(this)" value="${data.id}" >Cancel</button>
 </td>
+<td>
+    <button type="button" class="btn btn-primary" onclick="seeDetailBill(this)" value="${data.id}">See Detail Bill</button>
+</td>
     </tr>
     `
-    } else {
+    } else if (data.billStatus.id == 2) {
         return `
     <tr> 
     <td>${data.staff.name}</td>
@@ -248,10 +253,76 @@ function getAllBillPending(data) {
     <td>${data.amount}</td>
     <td>${data.billStatus.name}</td>
     <td>
+    <button type="button" class="btn btn-primary" onclick="setStatusAprovalToProcessing(this)" value="${data.id}">Processing</button>
+</td>
+<td>
+    <button type="button" class="btn btn-primary" onclick="seeDetailBill(this)" value="${data.id}">See Detail Bill</button>
+</td>
+    </tr>
+    `
+    } else if (data.billStatus.id == 3) {
+        return `
+    <tr> 
+    <td>${data.staff.name}</td>
+    <td>${data.checker.name}</td>
+    <td>${data.dateOrder}</td>
+    <td>${data.dateEnd}</td>
+    <td>${data.amount}</td>
+    <td>${data.billStatus.name}</td>
+    <td>
+    <button type="button" class="btn btn-primary" onclick="setStatusProcessingToRequestForMoney(this)" value="${data.id}">Request For Money</button>
+</td>
+<td>
+    <button type="button" class="btn btn-primary" onclick="seeDetailBill(this)" value="${data.id}">See Detail Bill</button>
+</td>
+    </tr>
+    `
+    } else if (data.billStatus.id == 6) {
+        return `
+    <tr> 
+    <td>${data.staff.name}</td>
+    <td>${data.checker.name}</td>
+    <td>${data.dateOrder}</td>
+    <td>${data.dateEnd}</td>
+    <td>${data.amount}</td>
+    <td>${data.billStatus.name}</td>
+    <td>
+    <button type="button" class="btn btn-primary" onclick="seeDetailBill(this)" value="${data.id}">See Detail Bill</button>
+</td>
+    </tr>
+    `
+    } else if (data.billStatus.id == 5) {
+        return `
+    <tr> 
+    <td>${data.staff.name}</td>
+    <td>${data.checker.name}</td>
+    <td>${data.dateOrder}</td>
+    <td>${data.dateEnd}</td>
+    <td>${data.amount}</td>
+    <td>${data.billStatus.name}</td>
+</td>
+<td>
+    <button type="button" class="btn btn-primary" onclick="seeDetailBill(this)" value="${data.id}">See Detail Bill</button>
+</td>
     </tr>
     `
     }
-
+    else if (data.billStatus.id == 4) {
+        return `
+    <tr> 
+    <td>${data.staff.name}</td>
+    <td>${data.checker.name}</td>
+    <td>${data.dateOrder}</td>
+    <td>${data.dateEnd}</td>
+    <td>${data.amount}</td>
+    <td>${data.billStatus.name}</td>
+</td>
+<td>
+    <button type="button" class="btn btn-primary" onclick="seeDetailBill(this)" value="${data.id}">See Detail Bill</button>
+</td>
+    </tr>
+    `
+    }
 }
 
 function setStatusPendingToAproval(a) {
@@ -285,6 +356,151 @@ function setStatusPendingToCancel(a) {
         type: "PUT",
         success: function (data) {
             showBill(1);
+        }
+    })
+    event.preventDefault();
+}
+
+function setStatusAprovalToProcessing(a) {
+    let idBill = a.getAttribute("value");
+    console.log(idBill);
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        url: "http://localhost:8080/api/bills/setStatusProcessing/" + idBill,
+        type: "PUT",
+        success: function (data) {
+            showBill(2);
+        }
+    })
+    event.preventDefault();
+}
+
+function setStatusProcessingToRequestForMoney(a) {
+    let idBill = a.getAttribute("value");
+    console.log(idBill);
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        url: "http://localhost:8080/api/bills/setStatusRequestMoney/" + idBill,
+        type: "PUT",
+        success: function (data) {
+            showBill(3);
+        }
+    })
+    event.preventDefault();
+}
+
+function closeBill() {
+    document.getElementById('showBillPeding').innerHTML = ``;
+}
+
+function seeDetailBill(a) {
+    let idBill = a.getAttribute("value");
+    $.ajax({
+        url: "http://localhost:8080/api/billOptions/findByBill/" + idBill,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        success: function (billoption1) {
+            $.ajax({
+                url: "http://localhost:8080/api/bills/" + idBill,
+                type: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token
+                },
+                success: function (bill) {
+                    console.log(bill);
+                    $('#billIdDetail').val(bill.id);
+                    $('#showDetailBill').modal("show")
+                    $('#staffNameDetail').val(bill.staff.name);
+                    $('#checkerNameDetail').val(bill.checker.name);
+                    $('#checkerAddressDetails').val(bill.checker.address)
+                    $('#BillTime').val("0")
+                    $('#billStatusDetails').val(bill.billStatus.name);
+                    $('#billAmountDetails').val(bill.amount);
+                    let text = ``;
+                    for (let i = 0; i < billoption1.length; i++) {
+                        text += `
+                            <tr>
+                              <td>${i}</td>
+                              <td>${billoption1[i].option.name}</td>                        
+                            </tr>
+                        `
+                    }
+                    document.getElementById("table").innerHTML = text;
+                }
+            })
+        }
+    })
+    event.preventDefault();
+}
+function setStatus(){
+    $.ajax({
+        url: "http://localhost:8080/api/status",
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        success: function (data){
+            let listStatus = [];
+            listStatus = types;
+            let userSelect = document.getElementById("stt");
+            listStatus.forEach(function (option) {
+                var opt = document.createElement('option');
+                opt.value = option.id;
+                opt.innerHTML = option.nameType;
+                userSelect.appendChild(opt);
+            })
+        }
+    })
+}
+getGuest()
+function getGuest(){
+    let idStaff = currentStaff.id;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        url: `http://localhost:8080/api/bills/showByStaffAndStatus/${idStaff}/4`,
+        type: "GET",
+        success: function (data) {
+            document.getElementById("totalGuest").innerHTML = `${data.length}`
+        }
+    })
+}
+getTotalMoney();
+function getTotalMoney(){
+    let idStaff = currentStaff.id;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        url: `http://localhost:8080/api/bills/showByStaffAndStatus/${idStaff}/4`,
+        type: "GET",
+        success: function (data) {
+            let sum = 0;
+            for (let i = 0; i < data.length ; i++) {
+                sum += data[i].amount;
+            }
+            document.getElementById("totalMoney").innerHTML = `${sum}$`
         }
     })
     event.preventDefault();
