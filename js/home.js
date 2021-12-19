@@ -156,6 +156,9 @@ function createChecker() {
         city: city,
         description: description,
         url_facebook: url_facebook,
+        assessment: {
+            id: 1
+        },
         account: {
             id: account_id
         }

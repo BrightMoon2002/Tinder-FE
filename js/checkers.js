@@ -1,12 +1,13 @@
 // let currentUser = JSON.parse(localStorage.getItem("user"));
 // let currentStaff = JSON.parse(localStorage.getItem("staff"));
+let currentChecker = JSON.parse(localStorage.getItem("checkers"));
 // if (currentUser == null || currentStaff == null || currentUser.token == null) {
 
 
 
 function logout() {
     localStorage.removeItem("user");
-    localStorage.removeItem("checker");
+    localStorage.removeItem("checkers");
     checkAut();
 }
 
@@ -350,44 +351,88 @@ function submitOrder() {
     event.preventDefault();
 }
 
-function getBillList() {
 
+
+function getBillList2() {
     $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/bills/showByChecker/" + currentChecker.id,
+        success: function (data) {
+            let contentTable = ''
 
-    })
+            for (let i = 0; i < data.length; i++) {
+                contentTable += getBillChecker2(data[i]);
+                console.log(contentTable)
+            }
+            let contentBill =
+                '<table class="table caption-top">\n' +
+                '  <caption>List of Bills</caption>\n' +
+                '  <thead>\n' +
+                '    <tr>\n' +
+                '      <th scope="col">#</th>\n' +
+                '      <th scope="col">CHECKER</th>\n' +
+                '      <th scope="col">STAFF</th>\n' +
+                '      <th scope="col">ORDERED DATE</th>\n' +
+                '      <th scope="col">ENDED DATE</th>\n' +
+                '      <th scope="col">CHARGED FEE</th>\n' +
+                '      <th scope="col">STATUS</th>\n' +
+                '      <th scope="col">ASSESSMENT</th>\n' +
+                '      <th scope="col" style="text-align: center">ACTION</th>\n' +
+                '    </tr>\n' +
+                '  </thead>\n' +
+                '  <tbody>\n' +
+                contentTable+
+                '  </tbody>\n' +
+                '</table>'
 
 
+            document.getElementById('checkerBills').innerHTML = contentBill;
 
-
-    let content = '<table class="table">\n' +
-        '  <thead>\n' +
-        '    <tr>\n' +
-        '      <th scope="col">#</th>\n' +
-        '      <th scope="col">First</th>\n' +
-        '      <th scope="col">Last</th>\n' +
-        '      <th scope="col">Handle</th>\n' +
-        '    </tr>\n' +
-        '  </thead>\n' +
-        '  <tbody>\n' +
-        '    <tr>\n' +
-        '      <th scope="row">1</th>\n' +
-        '      <td>Mark</td>\n' +
-        '      <td>Otto</td>\n' +
-        '      <td>@mdo</td>\n' +
-        '    </tr>\n' +
-        '    <tr>\n' +
-        '      <th scope="row">2</th>\n' +
-        '      <td>Jacob</td>\n' +
-        '      <td>Thornton</td>\n' +
-        '      <td>@fat</td>\n' +
-        '    </tr>\n' +
-        '    <tr>\n' +
-        '      <th scope="row">3</th>\n' +
-        '      <td colspan="2">Larry the Bird</td>\n' +
-        '      <td>@twitter</td>\n' +
-        '    </tr>\n' +
-        '  </tbody>\n' +
-        '</table>'
+            // console.log(contentBill)
+        }
+    });
 }
 
+
+function getBillChecker2(bill) {
+    let content = "";
+    if (bill.billStatus.id === 6) {
+        content =         `<td>\n` +
+            `<button id="viewOne" class="close" data-dismiss="alert" onclick="createAssessment(this)" value="${bill.id}">\n` +
+            ` <span aria-hidden="true">Assessment</span>\n` +
+            `</button>` +
+            ` </td>\n`
+    } else {
+        content = `<td>\n` +
+            `<button id="viewOne" class="close" data-dismiss="alert" onclick="createAssessment(this)" value="${bill.id}" hidden>\n` +
+            ` <span aria-hidden="true">Assessment</span>\n` +
+            `</button>` +
+            ` </td>\n`
+    }
+
+
+
+
+
+    return                 '<tr>\n' +
+        '      <th scope="row">'+bill.id+'</th>\n' +
+        '      <td>'+bill.checker.name+'</td>\n' +
+        '      <td>'+bill.staff.name+'</td>\n' +
+        '      <td>'+bill.dateOrder+'</td>\n' +
+        '      <td>'+bill.dateEnd+'</td>\n' +
+        '      <td>'+bill.amount+'</td>\n' +
+        '      <td>'+bill.billStatus.name+'</td>\n' +
+        '      <td>'+bill.assessment.content+'</td>\n' +
+        content +
+        '    </tr>\n'
+}
+
+function createAssessment(id) {
+    alert("hello")
+}
+
+
+
+
+getBillList2()
 getAllStaffsForChecker()

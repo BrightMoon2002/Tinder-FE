@@ -23,6 +23,8 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+
+
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
@@ -63,6 +65,14 @@
                 })
         })()
     </script>
+
+<!--    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>-->
+
+<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+
+<!--    <link rel="stylesheet" href="cssBill/style.css">-->
+
+
 </head>
 <body id="page-top">
 <!-- Navigation-->
@@ -162,15 +172,28 @@
     </div>
 </section>
 <!-- Bills-->
-<section class="page-section" id="bills">
+<section class="page-section" >
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">BILLS</h2>
-            <h3 class="section-subheading text-muted">Your feedbak.</h3>
         </div>
-        <div id="billList">
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center" id="bills">
+                    <div class="col-md-6 text-center mb-5">
+                        <h2 class="heading-section">BILL LIST</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-wrap" >
+                            <table id="checkerBills" class="table table-responsive-xl">
 
-        </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </section>
 <!-- About-->
@@ -483,8 +506,17 @@
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
+<script src="jsBill/main.js"></script>
 <script src="js/scripts.js"></script>
 <script src="js/checkers.js"></script>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<script src="jsBill/jquery.min.js"></script>
+<script src="jsBill/popper.js"></script>
+<script src="jsBill/bootstrap.min.js"></script>
+<script src="jsBill/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
 </body>
