@@ -826,9 +826,45 @@ function showBalance() {
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+function showLogChatWithStaff(id) {
+    showChatForm()
+    let idUser = currentChecker.id
+    let idView = $('#idView').val();
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/api/messages/" + idUser + "/" + idView,
+        success: function (data) {
+            portfolioModalChat
+            let contentTable = '';
+            for (let i = 0; i < data.length; i++) {
+                contentTable += getChat(data[i]);
+                console.log(contentTable)
+            }
+            let content = '<table>\n'+
+                '<tr>\n' +
+                   ' <th>Chat log ${data.username}</th>\n' +
+                contentTable +
+                '</tr>\n' +
+            '</table>';
 
+            document.getElementById('chatMessage').innerHTML = content;
+        }
+    });
+    event.preventDefault();
+ }
+function getChat(data) {
+    return `<tr><td>${data.nameSend}</td><td>${data.content}</td>\n`+
+        `<td>${data.nameReceiver}</td><td>${data.dateSend}</td></tr>`
+}
 
-
+function showChatForm() {
+    $('#portfolioModalChat').modal("show");
+}
 
 showBalance()
 getBillList2()
