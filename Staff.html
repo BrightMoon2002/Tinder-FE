@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="cssBill/style.css">
     <script src="js/staff.js"></script>
+
+    <!--    chart-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
+            integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 
 <body>
@@ -42,7 +48,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                 <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">My Service</a></li>
+                <li class="nav-item"><a class="nav-link" href="#myService">My Service</a></li>
+                <li class="nav-item"><a class="nav-link" href="#statical">Statical</a></li>
+                <li class="nav-item"><a class="nav-link" onclick="setStatus()">Status</a></li>
+                <li class="nav-item"><a class="nav-link" href="#features6-1h">Aware</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" onclick="showInformation()">My Information</a></li>
                 <!--                <li class="nav-item"><a class="nav-link" href="#">Team</a></li>-->
                 <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
@@ -227,7 +236,7 @@
     </div>
 </header>
 
-<div class="p-5 mb-4 bg-light rounded-3">
+<div class="p-5 mb-4 bg-light rounded-3" id="myService">
     <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">List of our services</h1>
         <p class="col-md-8 fs-4">
@@ -262,34 +271,178 @@
 <li>
     <div style="background: black;height: 10px"></div>
 </li>
+<main class="px-3 text-center" id="statical">
+    <h1>Statistical</h1>
+    <p class="lead">You will be able to list the bills that have occurred according to the transaction history</p>
+</main>
+<div style="width: 500px;margin: 0 auto">
+    <canvas id="myChart" width="400" height="400"></canvas>
+</div>
 <div>
     <table class="table" id="showBillPeding">
 
     </table>
-    <div class="btn-group" style="width: 300px; height: 50px;margin-left: 40%">
+    <div class="btn-group" style="width: 300px; height: 50px;margin-left: 41%">
         <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Action
+            See details
         </button>
         <ul class="dropdown-menu" id="xxx">
             <li><a class="dropdown-item" onclick="showBill(1)" href="#xxx">Show Bill With Status is Pending</a></li>
             <li><a class="dropdown-item" href="#xxx" onclick="showBill(2)">Show Bill With Status is Aproval</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#xxx" onclick="showBill(3)">Show Bill With Status is Processing</a></li>
+            <li><a class="dropdown-item" href="#xxx" onclick="showBill(6)">Show Bill With Status is Request For
+                Money</a></li>
+            <li><a class="dropdown-item" href="#xxx" onclick="showBill(5)">Show Bill With Status is Cancel</a></li>
+            <li><a class="dropdown-item" href="#xxx" onclick="showBill(4)">Show Bill With Status is Complete</a></li>
+            <li><a class="dropdown-item" onclick="closeBill()" href="#xxx">Close</a></li>
         </ul>
     </div>
-
 </div>
+<div id="showDetailBill" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <h3 class="modal-title" id="titleModal2">Bill Details</h3>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+            <!-- body -->
+            <div class="modal-body">
+                <fieldset disabled class="col-md-6">
+                    <div class="col-md-12">
+                        <label for="fullname1" class="form-label">Bill ID</label>
+                        <input type="text" class="form-control" id="billIdDetail" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="fullname1" class="form-label">Staff Name</label>
+                        <input type="text" class="form-control" id="staffNameDetail" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="fullname1" class="form-label">Checker Name</label>
+                        <input type="text" class="form-control" id="checkerNameDetail" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="fullname1" class="form-label">Checker Address</label>
+                        <input type="text" class="form-control" id="checkerAddressDetails" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="fullname1" class="form-label">Bill Time</label>
+                        <input type="text" class="form-control" id="BillTime" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="fullname1" class="form-label">Bill Status</label>
+                        <input type="text" class="form-control" id="billStatusDetails" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="fullname1" class="form-label">Bill Amount</label>
+                        <input type="text" class="form-control" id="billAmountDetails" required>
+                    </div>
+                    <table  style="width: 100px">
+                        <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Option Name</th>
+                        </tr>
+                        </thead>
+                        <tbody id = "table">
 
-<!--<div class="container-fluid">-->
-<!--    <p>-->
-<!--        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">-->
-<!--            Show current job-->
-<!--        </button>-->
-<!--    </p>-->
-<!--    <div class="collapse" id="collapseExample">-->
-<!--        -->
-<!--    </div>-->
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="statusStaff" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <h3 class="modal-title" id="titleModal3">Set status</h3>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+            <!-- body -->
+            <div class="modal-body">
+                <div id="stt"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
 
-<!--</div>-->
+<section class="mbr-cards mbr-section mbr-section-nopadding" id="features6-1h" style="background-color: rgb(239, 239, 239);">
+    <h1 class="display-5 fw-bold text-center">My Aware</h1>
+    <div class="mbr-cards-row row">
+        <div class="mbr-cards-col col-xs-12 col-lg-4" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block text-center">
+                    <div class="card-img"><img width="100%" src="https://mobirise.com/free-template/assets/images/themify-e6340.jpg" alt=""></div>
+                    <div class="card-block">
+                        <h4 class="card-title">Total number of guests served</h4>
+                        <h1 id="totalGuest"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mbr-cards-col col-xs-12 col-lg-4" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block text-center">
+                    <div class="card-img"><img width="100%" src="https://mobirise.com/free-template/assets/images/themify-e71f4.jpg" alt=""></div>
+                    <div class="card-block">
+                        <h4 class="card-title">
+                            Customer Satisfaction</h4>
+                        <h1>97%</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mbr-cards-col col-xs-12 col-lg-4" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="container">
+                <div class="card cart-block text-center">
+                    <div class="card-img"><img width="100%" src="https://mobirise.com/free-template/assets/images/themify-e6421.jpg" alt=""></div>
+                    <div class="card-block">
+                        <h4 class="card-title">
+                            Total amount earned</h4>
+                        <h1 id="totalMoney"></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section  style="background-color: rgb(53,58,64); padding-top: 60px; padding-bottom: 50px;">
+    <h1 class="display-5 fw-bold text-center" style="color:white;">My Aware</h1>
+    <table  class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Account name</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Rate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+<script src="./js/chart.js"></script>
 <script src="jsBill/jquery.min.js"></script>
 <script src="jsBill/popper.js"></script>
 <script src="jsBill/bootstrap.min.js"></script>
@@ -299,9 +452,9 @@
 <script src="js/scripts.js"></script>
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 <script src="js/scripts.js"></script>
-<script>
-    showListBill();
-</script>
+<!--<script>-->
+<!--    showListBill();-->
+<!--</script>-->
 
 </body>
 </html>
