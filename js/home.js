@@ -108,16 +108,15 @@ function CheckerRegisterAccount() {
         data: JSON.stringify(newCheckerAccount),
         url: "http://localhost:8080/api/accounts",
         success: function (data) {
-                if (a() === true) {
+                // if (a() == true) {
                     showCheckerDetails(data.id);
-                } else {
-                   myFunctionPhone();
-                   myFunctionEmail();
-                   myFunctionUserName();
-                   myFunctionPassword();
-                   myFunctionFullName();
-                   myFunctionAgreeForm();
-                }
+                // } else {
+                //    myFunctionPhone();
+                //    myFunctionEmail();
+                //    myFunctionUserName();
+                //    myFunctionPassword();
+                //    myFunctionFullName();
+                // }
 
         }
     })
@@ -235,27 +234,27 @@ function RegisterAccountStaff() {
                 url: "http://localhost:8080/api/genders",
                 type: "GET",
                 success: function (data) {
-                    if (b() === true) {
-                        let listTypes = [];
-                        listTypes = data;
-                        let userSelect = document.getElementById("gender");
-                        listTypes.forEach(function (option) {
-                            var opt = document.createElement('option');
-                            opt.value = option.id;
-                            opt.innerHTML = option.name;
-                            userSelect.appendChild(opt);
-                            $('#idAccount').val(idAccount);
-                            $('#showFormAccountStaff').modal('hide');
-                            $('#showFormRegisterForStaff').modal('show');
-                        })
-                    } else {
-                        myFunctionPhoneStaff();
-                        myFunctionEmailStaff();
-                        myFunctionUserNameStaff();
-                        myFunctionPasswordStaff();
-                        myFunctionFullNameStaff();
-                    }
-
+                    // if (b() == true) {
+                    let listTypes = [];
+                    listTypes = data;
+                    let userSelect = document.getElementById("gender");
+                    listTypes.forEach(function (option) {
+                        var opt = document.createElement('option');
+                        opt.value = option.id;
+                        opt.innerHTML = option.name;
+                        userSelect.appendChild(opt);
+                        $('#idAccount').val(idAccount);
+                        $('#showFormAccountStaff').modal('hide');
+                        $('#showFormRegisterForStaff').modal('show');
+                    })
+                    //     } else {
+                    //         myFunctionPhoneStaff();
+                    //         myFunctionEmailStaff();
+                    //         myFunctionUserNameStaff();
+                    //         myFunctionPasswordStaff();
+                    //         myFunctionFullNameStaff();
+                    //     }
+                    //
                 }
             })
             event.preventDefault();
