@@ -1,8 +1,8 @@
 // let currentUser = JSON.parse(localStorage.getItem("user"));
 // let currentStaff = JSON.parse(localStorage.getItem("staff"));
 let currentChecker = JSON.parse(localStorage.getItem("checkers"));
-// if (currentUser == null || currentStaff == null || currentUser.token == null) {
 
+// if (currentUser == null || currentStaff == null || currentUser.token == null) {
 
 
 function logout() {
@@ -36,27 +36,27 @@ function getAllStaffsForChecker() {
         url: "http://localhost:8080/api/staffs/allstaff",
         success: function (data) {
 
-            for (let i =0; i<data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
                 content +=
                     '            <div class="col-lg-4 col-sm-6 mb-4">\n' +
                     '                <div class="portfolio-item">\n' +
-                    '                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal'+i+'">\n' +
+                    '                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal' + i + '">\n' +
                     '                        <div class="portfolio-hover">\n' +
                     '                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>\n' +
                     '                        </div>\n' +
-                    '                        <img style="height: 302.5px; max-width: 402px"  class="img-fluid" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
+                    '                        <img style="height: 302.5px; max-width: 402px"  class="img-fluid" src="' + data[i].avatarUrl1 + '" alt="..."/>\n' +
                     '                    </a>\n' +
                     '                    <div class="portfolio-caption">\n' +
-                    '                        <div class="portfolio-caption-heading">'+data[i].name+'</div>\n' +
-                    '                        <div class="portfolio-caption-subheading text-muted">'+data[i].description+'</div>\n' +
+                    '                        <div class="portfolio-caption-heading">' + data[i].name + '</div>\n' +
+                    '                        <div class="portfolio-caption-subheading text-muted">' + data[i].description + '</div>\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>'
 
 
                 detail +=
-                    '<div class="portfolio-modal modal fade" id="portfolioModal'+i+'" tabindex="-1" role="dialog" aria-hidden="true">\n' +
+                    '<div class="portfolio-modal modal fade" id="portfolioModal' + i + '" tabindex="-1" role="dialog" aria-hidden="true">\n' +
                     '    <div class="modal-dialog">\n' +
                     '        <div class="modal-content">\n' +
                     '            <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal"/>\n' +
@@ -66,20 +66,21 @@ function getAllStaffsForChecker() {
                     '                    <div class="col-lg-8">\n' +
                     '                        <div class="modal-body">\n' +
                     '                            <!-- Project details-->\n' +
-                    '                            <h2 class="text-uppercase">'+data[i].name+'e</h2>\n' +
-                    '                            <p class="item-intro text-muted">'+data[i].genders+'</p>\n' +
-                    '                            <img class="img-fluid d-block mx-auto" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
-                    '                            <p><br><b>DOB:</b> '+data[i].dob+'<br><b>City:</b> '+data[i].city+'<br><b>Nationality:</b> '+data[i].nationality+'<br><b>Height:</b> '+data[i].height+'<br><b>Weight:</b> '+data[i].weight+'<br><b>Description:</b> '+data[i].description+'<br><b>Services:</b> '+data[i].options+'</p>\n' +
+                    '                            <h2 class="text-uppercase">' + data[i].name + 'e</h2>\n' +
+                    '                            <p class="item-intro text-muted">' + data[i].genders + '</p>\n' +
+                    '                            <img class="img-fluid d-block mx-auto" src="' + data[i].avatarUrl1 + '" alt="..."/>\n' +
+                    '                            <p><br><b>DOB:</b> ' + data[i].dob + '<br><b>City:</b> ' + data[i].city + '<br><b>Nationality:</b> ' + data[i].nationality + '<br><b>Height:</b> ' + data[i].height + '<br><b>Weight:</b> ' + data[i].weight + '<br><b>Description:</b> ' + data[i].description + '<br><b>Services:</b> ' + data[i].options + '</p>\n' +
                     '                            <ul class="list-inline">\n' +
                     '                                <li>\n' +
                     '                                    <strong>Images:</strong>\n' +
                     '                                </li>\n' +
                     '                                <li>\n' +
-                    '                                    <img class="img-fluid" src="'+data[i].avatarUrl2+'" alt="..."/>' +
-                    '                                    <img class="img-fluid" src="'+data[i].avatarUrl3+'" alt="..."/>' +
+                    '                                    <img class="img-fluid" src="' + data[i].avatarUrl2 + '" alt="..."/>' +
+                    '                                    <img class="img-fluid" src="' + data[i].avatarUrl3 + '" alt="..."/>' +
                     '                                </li>\n' +
                     '                            </ul>\n' +
-                    '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff('+data[i].id+')">\n' +
+                    '                        <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">chat</button>\n' +
+                    '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff(' + data[i].id + ')">\n' +
                     '                                \n' +
                     '                                Order\n' +
                     '                            </button>\n' +
@@ -114,27 +115,27 @@ function getAllStaffsForCheckerByMale() {
         url: "http://localhost:8080/api/staffs/gender/1",
         success: function (data) {
 
-            for (let i =0; i<data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
                 content +=
                     '            <div class="col-lg-4 col-sm-6 mb-4">\n' +
                     '                <div class="portfolio-item">\n' +
-                    '                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal'+i+'">\n' +
+                    '                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal' + i + '">\n' +
                     '                        <div class="portfolio-hover">\n' +
                     '                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>\n' +
                     '                        </div>\n' +
-                    '                        <img class="img-fluid" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
+                    '                        <img class="img-fluid" src="' + data[i].avatarUrl1 + '" alt="..."/>\n' +
                     '                    </a>\n' +
                     '                    <div class="portfolio-caption">\n' +
-                    '                        <div class="portfolio-caption-heading">'+data[i].name+'</div>\n' +
-                    '                        <div class="portfolio-caption-subheading text-muted">'+data[i].description+'</div>\n' +
+                    '                        <div class="portfolio-caption-heading">' + data[i].name + '</div>\n' +
+                    '                        <div class="portfolio-caption-subheading text-muted">' + data[i].description + '</div>\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>'
 
 
                 detail +=
-                    '<div class="portfolio-modal modal fade" id="portfolioModal'+i+'" tabindex="-1" role="dialog" aria-hidden="true">\n' +
+                    '<div class="portfolio-modal modal fade" id="portfolioModal' + i + '" tabindex="-1" role="dialog" aria-hidden="true">\n' +
                     '    <div class="modal-dialog">\n' +
                     '        <div class="modal-content">\n' +
                     '            <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal"/>\n' +
@@ -144,20 +145,21 @@ function getAllStaffsForCheckerByMale() {
                     '                    <div class="col-lg-8">\n' +
                     '                        <div class="modal-body">\n' +
                     '                            <!-- Project details-->\n' +
-                    '                            <h2 class="text-uppercase">'+data[i].name+'e</h2>\n' +
-                    '                            <p class="item-intro text-muted">'+data[i].genders+'</p>\n' +
-                    '                            <img class="img-fluid d-block mx-auto" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
-                    '                            <p><br><b>DOB:</b> '+data[i].dob+'<br><b>City:</b> '+data[i].city+'<br><b>Nationality:</b> '+data[i].nationality+'<br><b>Height:</b> '+data[i].height+'<br><b>Weight:</b> '+data[i].weight+'<br><b>Description:</b> '+data[i].description+'<br><b>Services:</b> '+data[i].options+'</p>\n' +
+                    '                            <h2 class="text-uppercase">' + data[i].name + 'e</h2>\n' +
+                    '                            <p class="item-intro text-muted">' + data[i].genders + '</p>\n' +
+                    '                            <img class="img-fluid d-block mx-auto" src="' + data[i].avatarUrl1 + '" alt="..."/>\n' +
+                    '                            <p><br><b>DOB:</b> ' + data[i].dob + '<br><b>City:</b> ' + data[i].city + '<br><b>Nationality:</b> ' + data[i].nationality + '<br><b>Height:</b> ' + data[i].height + '<br><b>Weight:</b> ' + data[i].weight + '<br><b>Description:</b> ' + data[i].description + '<br><b>Services:</b> ' + data[i].options + '</p>\n' +
                     '                            <ul class="list-inline">\n' +
                     '                                <li>\n' +
                     '                                    <strong>Images:</strong>\n' +
                     '                                </li>\n' +
                     '                                <li>\n' +
-                    '                                    <img class="img-fluid" src="'+data[i].avatarUrl2+'" alt="..."/>' +
-                    '                                    <img class="img-fluid" src="'+data[i].avatarUrl3+'" alt="..."/>' +
+                    '                                    <img class="img-fluid" src="' + data[i].avatarUrl2 + '" alt="..."/>' +
+                    '                                    <img class="img-fluid" src="' + data[i].avatarUrl3 + '" alt="..."/>' +
                     '                                </li>\n' +
                     '                            </ul>\n' +
-                    '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff('+data[i].id+')">\n' +
+                    '                        <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">chat</button>\n' +
+                    '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff(' + data[i].id + ')">\n' +
                     '                                \n' +
                     '                                Order\n' +
                     '                            </button>\n' +
@@ -192,27 +194,27 @@ function getAllStaffsForCheckerByFemale() {
         url: "http://localhost:8080/api/staffs/gender/2",
         success: function (data) {
 
-            for (let i =0; i<data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
                 content +=
                     '            <div class="col-lg-4 col-sm-6 mb-4">\n' +
                     '                <div class="portfolio-item">\n' +
-                    '                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal'+i+'">\n' +
+                    '                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal' + i + '">\n' +
                     '                        <div class="portfolio-hover">\n' +
                     '                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>\n' +
                     '                        </div>\n' +
-                    '                        <img class="img-fluid" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
+                    '                        <img class="img-fluid" src="' + data[i].avatarUrl1 + '" alt="..."/>\n' +
                     '                    </a>\n' +
                     '                    <div class="portfolio-caption">\n' +
-                    '                        <div class="portfolio-caption-heading">'+data[i].name+'</div>\n' +
-                    '                        <div class="portfolio-caption-subheading text-muted">'+data[i].description+'</div>\n' +
+                    '                        <div class="portfolio-caption-heading">' + data[i].name + '</div>\n' +
+                    '                        <div class="portfolio-caption-subheading text-muted">' + data[i].description + '</div>\n' +
                     '                    </div>\n' +
                     '                </div>\n' +
                     '            </div>'
 
 
                 detail +=
-                    '<div class="portfolio-modal modal fade" id="portfolioModal'+i+'" tabindex="-1" role="dialog" aria-hidden="true">\n' +
+                    '<div class="portfolio-modal modal fade" id="portfolioModal' + i + '" tabindex="-1" role="dialog" aria-hidden="true">\n' +
                     '    <div class="modal-dialog">\n' +
                     '        <div class="modal-content">\n' +
                     '            <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal"/>\n' +
@@ -222,20 +224,21 @@ function getAllStaffsForCheckerByFemale() {
                     '                    <div class="col-lg-8">\n' +
                     '                        <div class="modal-body">\n' +
                     '                            <!-- Project details-->\n' +
-                    '                            <h2 class="text-uppercase">'+data[i].name+'e</h2>\n' +
-                    '                            <p class="item-intro text-muted">'+data[i].genders+'</p>\n' +
-                    '                            <img class="img-fluid d-block mx-auto" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
-                    '                            <p><br><b>DOB:</b> '+data[i].dob+'<br><b>City:</b> '+data[i].city+'<br><b>Nationality:</b> '+data[i].nationality+'<br><b>Height:</b> '+data[i].height+'<br><b>Weight:</b> '+data[i].weight+'<br><b>Description:</b> '+data[i].description+'<br><b>Services:</b> '+data[i].options+'</p>\n' +
+                    '                            <h2 class="text-uppercase">' + data[i].name + 'e</h2>\n' +
+                    '                            <p class="item-intro text-muted">' + data[i].genders + '</p>\n' +
+                    '                            <img class="img-fluid d-block mx-auto" src="' + data[i].avatarUrl1 + '" alt="..."/>\n' +
+                    '                            <p><br><b>DOB:</b> ' + data[i].dob + '<br><b>City:</b> ' + data[i].city + '<br><b>Nationality:</b> ' + data[i].nationality + '<br><b>Height:</b> ' + data[i].height + '<br><b>Weight:</b> ' + data[i].weight + '<br><b>Description:</b> ' + data[i].description + '<br><b>Services:</b> ' + data[i].options + '</p>\n' +
                     '                            <ul class="list-inline">\n' +
                     '                                <li>\n' +
                     '                                    <strong>Images:</strong>\n' +
                     '                                </li>\n' +
                     '                                <li>\n' +
-                    '                                    <img class="img-fluid" src="'+data[i].avatarUrl2+'" alt="..."/>' +
-                    '                                    <img class="img-fluid" src="'+data[i].avatarUrl3+'" alt="..."/>' +
+                    '                                    <img class="img-fluid" src="' + data[i].avatarUrl2 + '" alt="..."/>' +
+                    '                                    <img class="img-fluid" src="' + data[i].avatarUrl3 + '" alt="..."/>' +
                     '                                </li>\n' +
                     '                            </ul>\n' +
-                    '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff('+data[i].id+')">\n' +
+                    '                        <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">chat</button>\n' +
+                    '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff(' + data[i].id + ')">\n' +
                     '                                \n' +
                     '                                Order\n' +
                     '                            </button>\n' +
@@ -256,16 +259,15 @@ function getAllStaffsForCheckerByFemale() {
 }
 
 
-
 function getStaffOptions(id) {
-    $.ajax ({
+    $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + currentUser.token
         },
         type: "GET",
-        url: "http://localhost:8080/api//api/options/"+id,
+        url: "http://localhost:8080/api//api/options/" + id,
         success: function (data) {
             return data
         }
@@ -274,20 +276,20 @@ function getStaffOptions(id) {
 
 function getStaffOptionsId(id) {
 
-    let optionContent ="";
+    let optionContent = "";
 
-    $.ajax ({
+    $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + currentUser.token
         },
         type: "GET",
-        url: "http://localhost:8080/api/staffoption/staff/"+id,
+        url: "http://localhost:8080/api/staffoption/staff/" + id,
         success: function (data) {
-            for (let i=0; i<data.length; i++) {
-                optionContent +='(data[i].option.id)' + '<input type="checkbox" id=option"'+data[i].option.id +'" name="'+data[i].option.id+'" value="'+ getStaffOptions(data[i].option.id)+'">\n' +
-                    '<label for="option'+data[i].option.id +'"> '+getStaffOptions(data[i].option.id)+'</label><br>'
+            for (let i = 0; i < data.length; i++) {
+                optionContent += '(data[i].option.id)' + '<input type="checkbox" id=option"' + data[i].option.id + '" name="' + data[i].option.id + '" value="' + getStaffOptions(data[i].option.id) + '">\n' +
+                    '<label for="option' + data[i].option.id + '"> ' + getStaffOptions(data[i].option.id) + '</label><br>'
             }
             return optionContent;
         }
@@ -295,7 +297,6 @@ function getStaffOptionsId(id) {
 
     event.preventDefault();
 }
-
 
 
 function showOrderStaff(staffId) {
@@ -321,16 +322,16 @@ function showOrderStaff(staffId) {
                         success: function (optionStaff) {
 
                             const formatToCurrency = amount => {
-                                return  amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") + " VND";
+                                return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") + " VND";
                             };
 
 
                             let optionsChoice = ""
 
-                            for (let i=0; i<optionStaff.length;i++) {
+                            for (let i = 0; i < optionStaff.length; i++) {
                                 optionsChoice += '<div class="form-check form-switch">\n' +
-                                    '  <input class="form-check-input" type="checkbox" id="optionStaff'+optionStaff[i].option.id+'" name="optionSelect" value="'+optionStaff[i].option.id+'">\n' +
-                                    '  <label class="form-check-label" for="flexSwitchCheckChecked">'+optionStaff[i].option.name+' - '+formatToCurrency(optionStaff[i].option.price)+'</label>\n' +
+                                    '  <input class="form-check-input" type="checkbox" id="optionStaff' + optionStaff[i].option.id + '" name="optionSelect" value="' + optionStaff[i].option.id + '">\n' +
+                                    '  <label class="form-check-label" for="flexSwitchCheckChecked">' + optionStaff[i].option.name + ' - ' + formatToCurrency(optionStaff[i].option.price) + '</label>\n' +
                                     '</div>'
 
                             }
@@ -353,17 +354,17 @@ function showOrderStaff(staffId) {
                                 '                    </div>\n' +
                                 '                    <div class="col-md-6">\n' +
                                 '                       <h6>Checker Name: </h6>\n' +
-                                '                       <input type="hidden" id="checkerClickedId" value="'+checker.id+'"></input>\n' +
-                                '                       <p>'+checker.name+'</p>\n' +
+                                '                       <input type="hidden" id="checkerClickedId" value="' + checker.id + '"></input>\n' +
+                                '                       <p>' + checker.name + '</p>\n' +
                                 '                    </div>\n' +
                                 '                    <div class="col-md-6">\n' +
                                 '                       <h6>Staff Name: </h6>\n' +
-                                '                       <input type="hidden" id="staffClickedId" value="'+staffClicked.id+'"></input>\n' +
-                                '                       <p>'+staffClicked.name+'</p>\n' +
+                                '                       <input type="hidden" id="staffClickedId" value="' + staffClicked.id + '"></input>\n' +
+                                '                       <p>' + staffClicked.name + '</p>\n' +
                                 '                    </div>\n' +
                                 '                    <div class="col-md-12">\n' +
                                 '                            <h5>Services: </h5>' +
-                                                            optionsChoice   +
+                                optionsChoice +
                                 '                    </div>\n' +
                                 '                    <div class="col-12">\n' +
                                 '                        <div class="form-check">\n' +
@@ -385,16 +386,12 @@ function showOrderStaff(staffId) {
                             document.getElementById("billCreatingFormModal").innerHTML = content
 
 
-
                         }
                     });
 
 
-
-
                 }
             });
-
 
 
         }
@@ -427,7 +424,7 @@ function submitOrder() {
             let checkbox = document.getElementsByName('optionSelect');
 
             let choices = []
-            for (let i=0; i< checkbox.length; i++) {
+            for (let i = 0; i < checkbox.length; i++) {
                 if (checkbox[i].checked === true)
                     choices.push(checkbox[i].value)
             }
@@ -439,20 +436,18 @@ function submitOrder() {
             let dd = String(today.getDate()).padStart(2, '0');
             let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             let yyyy = today.getFullYear();
-            let timeOrder = yyyy + '-' + mm + '-' + dd +'T'+dateOrder;
-
-
+            let timeOrder = yyyy + '-' + mm + '-' + dd + 'T' + dateOrder;
 
 
             let dateEnd = document.querySelector("#timeEnd").value;
-            let timeEnd = yyyy + '-' + mm + '-' + dd +'T'+dateEnd;
+            let timeEnd = yyyy + '-' + mm + '-' + dd + 'T' + dateEnd;
             let staffClickedId = document.querySelector("#staffClickedId").value;
             let checkerClickedId = document.querySelector("#checkerClickedId").value;
 
             let newBill = {
                 dateOrder: timeOrder,
                 dateEnd: timeEnd,
-                staff :{
+                staff: {
                     id: staffClickedId
                 },
                 checker: {
@@ -476,9 +471,9 @@ function submitOrder() {
                 url: "http://localhost:8080/api/bills",
                 data: JSON.stringify(newBill),
                 success: function (bill) {
-                    console.log("length: " +choices.length)
+                    console.log("length: " + choices.length)
                     let amount = 0;
-                    for (let i=0; i< choices.length; i++) {
+                    for (let i = 0; i < choices.length; i++) {
                         let newBillOption = {
                             bill: {
                                 id: bill.id
@@ -487,7 +482,7 @@ function submitOrder() {
                                 id: choices[i]
                             }
                         }
-                        $.ajax ({
+                        $.ajax({
                             headers: {
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json',
@@ -498,7 +493,7 @@ function submitOrder() {
                             data: JSON.stringify(newBillOption),
                             success: function (billOption) {
                                 console.log(billOption)
-                                $.ajax ({
+                                $.ajax({
                                     headers: {
                                         'Accept': 'application/json',
                                         'Content-Type': 'application/json',
@@ -524,7 +519,7 @@ function submitOrder() {
                         type: "GET",
                         url: "http://localhost:8080/api/bills/hour/" + bill.id,
                         success: function (hourDiff) {
-                            amount = hourDiff*amount
+                            amount = hourDiff * amount
 
                             $.ajax({
                                 headers: {
@@ -533,7 +528,7 @@ function submitOrder() {
                                     'Authorization': 'Bearer ' + currentUser.token
                                 },
                                 type: "PUT",
-                                url: "http://localhost:8080/api/bills/amount/" + bill.id +"/" + amount,
+                                url: "http://localhost:8080/api/bills/amount/" + bill.id + "/" + amount,
                                 success: function (amountSet) {
                                     console.log("amount: " + amountSet.amount)
                                     if (amountSet.amount > balance) {
@@ -581,7 +576,7 @@ function submitOrder() {
                                             }
                                         })
 
-                                    event.preventDefault()
+                                        event.preventDefault()
 
                                     }
 
@@ -600,20 +595,14 @@ function submitOrder() {
     });
 
 
-
-
-
-
-
     event.preventDefault();
 
 
 }
 
-function closeCancelledBillModal(){
+function closeCancelledBillModal() {
     $('#cancelledBillModal').modal("hide")
 }
-
 
 
 function getBillList2() {
@@ -649,7 +638,7 @@ function getBillList2() {
                 '    </tr>\n' +
                 '  </thead>\n' +
                 '  <tbody>\n' +
-                contentTable+
+                contentTable +
                 '  </tbody>\n' +
                 '</table>'
 
@@ -665,32 +654,29 @@ function getBillList2() {
 function getBillChecker2(bill) {
     let content = "";
     if (bill.billStatus.id === 4) {
-        content =         `<td>\n` +
-            `<button id="viewOne" class="close" data-dismiss="alert" onclick="showCreateAssessment(`+bill.id+`)" value="${bill.id}">\n` +
+        content = `<td>\n` +
+            `<button id="viewOne" class="close" data-dismiss="alert" onclick="showCreateAssessment(` + bill.id + `)" value="${bill.id}">\n` +
             ` <span aria-hidden="true">Assessment</span>\n` +
             `</button>` +
             ` </td>\n`
     } else {
         content = `<td>\n` +
-            `<button id="viewOne" class="close" data-dismiss="alert" onclick="showCreateAssessment(`+bill.id+`)" value="${bill.id}" hidden>\n` +
+            `<button id="viewOne" class="close" data-dismiss="alert" onclick="showCreateAssessment(` + bill.id + `)" value="${bill.id}" hidden>\n` +
             ` <span aria-hidden="true">Assessment</span>\n` +
             `</button>` +
             ` </td>\n`
     }
 
 
-
-
-
-    return                 '<tr>\n' +
-        '      <th scope="row">'+bill.id+'</th>\n' +
-        '      <td>'+bill.checker.name+'</td>\n' +
-        '      <td>'+bill.staff.name+'</td>\n' +
-        '      <td>'+bill.dateOrder+'</td>\n' +
-        '      <td>'+bill.dateEnd+'</td>\n' +
-        '      <td>'+bill.amount+'</td>\n' +
-        '      <td>'+bill.billStatus.name+'</td>\n' +
-        '      <td>'+bill.assessment.content+'</td>\n' +
+    return '<tr>\n' +
+        '      <th scope="row">' + bill.id + '</th>\n' +
+        '      <td>' + bill.checker.name + '</td>\n' +
+        '      <td>' + bill.staff.name + '</td>\n' +
+        '      <td>' + bill.dateOrder + '</td>\n' +
+        '      <td>' + bill.dateEnd + '</td>\n' +
+        '      <td>' + bill.amount + '</td>\n' +
+        '      <td>' + bill.billStatus.name + '</td>\n' +
+        '      <td>' + bill.assessment.content + '</td>\n' +
         content +
         '    </tr>\n'
 }
@@ -737,7 +723,7 @@ function createAssessment() {
                     'Authorization': 'Bearer ' + currentUser.token
                 },
                 type: "PUT",
-                url: "http://localhost:8080/api/assessments/" +bill.assessment.id,
+                url: "http://localhost:8080/api/assessments/" + bill.assessment.id,
                 data: JSON.stringify(assessment),
                 success: function (assessmentResult) {
                     getBillList2()
@@ -749,7 +735,7 @@ function createAssessment() {
     })
 
 
-event.preventDefault()
+    event.preventDefault()
 
 }
 
@@ -758,7 +744,7 @@ function showTopup() {
 }
 
 function topUp() {
-    $.ajax ({
+    $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -774,7 +760,7 @@ function topUp() {
                 balance: totalBalance
             }
 
-            $.ajax ({
+            $.ajax({
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -798,7 +784,7 @@ function topUp() {
 
 
 function showBalance() {
-    $.ajax ({
+    $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -811,9 +797,9 @@ function showBalance() {
             let balance = numberWithCommas(data.balance)
 
 
-            let content = '<input id="currentBalance" type="hidden" value="'+data.balance+'">' +
+            let content = '<input id="currentBalance" type="hidden" value="' + data.balance + '">' +
                 '                        <div class="d-flex flex-column"><span style="color: white">Balance amount</span>\n' +
-                '                            <p style="color: white"> <span class="text-white" >'+balance+'</span> &#8363;</p>\n' +
+                '                            <p style="color: white"> <span class="text-white" >' + balance + '</span> &#8363;</p>\n' +
                 '                        </div>'
 
             document.getElementById("accountBalanceShow").innerHTML = content
@@ -826,10 +812,17 @@ function showBalance() {
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
 function showLogChatWithStaff(id) {
     showChatForm()
-    let idUser = currentChecker.id
-    let idView = $('#idView').val();
+    let idUser = currentUser.id
+    let idView;
+    if (JSON.parse(localStorage.getItem("idReceiver"))==null) {
+        idView = id.getAttribute('value')
+        localStorage.setItem("idReceiver", JSON.stringify(idView))
+    } else {
+        idView = JSON.parse(localStorage.getItem("idReceiver"))
+    }
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -839,31 +832,68 @@ function showLogChatWithStaff(id) {
         type: "GET",
         url: "http://localhost:8080/api/messages/" + idUser + "/" + idView,
         success: function (data) {
-            portfolioModalChat
+            let btn = document.getElementById('btnView');
+            btn.setAttribute("idReceiver", idView);
             let contentTable = '';
-            for (let i = 0; i < data.length; i++) {
-                contentTable += getChat(data[i]);
-                console.log(contentTable)
-            }
-            let content = '<table>\n'+
-                '<tr>\n' +
-                   ' <th>Chat log ${data.username}</th>\n' +
-                contentTable +
+
+            let content = '<tr>\n' +
+                ' <th>Chat log </th>\n' +
                 '</tr>\n' +
-            '</table>';
+                '</table>';
+            for (let i = 0; i < data.length; i++) {
+                content += getChat(data[i], idView);
+            }
 
             document.getElementById('chatMessage').innerHTML = content;
         }
     });
     event.preventDefault();
- }
-function getChat(data) {
-    return `<tr><td>${data.nameSend}</td><td>${data.content}</td>\n`+
-        `<td>${data.nameReceiver}</td><td>${data.dateSend}</td></tr>`
+}
+
+function getChat(data, idView) {
+    return `<tr><td>${data.nameSend} send</td><td>${data.content}</td>\n` +
+        `<td>to ${data.nameReceiver}</td><td>at ${data.dateSend}</td></tr>\n`+
+        `<input hidden id="idView" value="${idView}">`
 }
 
 function showChatForm() {
     $('#portfolioModalChat').modal("show");
+    event.preventDefault();
+}
+
+function closeChatMessage() {
+    localStorage.removeItem("idReceiver");
+    $('#portfolioModalChat').modal("hide");
+    event.preventDefault();
+
+}
+
+function createMessageB() {
+    let idUser = currentUser.id;
+    let idView = JSON.parse(localStorage.getItem("idReceiver"))
+    let content = $('#createMessage').val();
+
+    let newMessage = {
+        content: content,
+        sender: {
+            id: idUser
+        },
+        receiver: {
+            id: idView
+        }
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "POST",
+        url: "http://localhost:8080/api/messages/",
+        data: JSON.stringify(newMessage),
+        success: showLogChatWithStaff(idView)
+    });
+event.preventDefault();
 }
 
 showBalance()

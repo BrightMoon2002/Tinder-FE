@@ -721,6 +721,7 @@
                             <!-- Chat-->
                             <h2 class="text-uppercase">Chat message</h2>
                             <div>
+                                <form>
                                     <table id="chatMessage">
                                         <caption>Chat room</caption>
                                         <tr>
@@ -728,15 +729,15 @@
                                             <th>chat log</th>
                                         </tr>
                                     </table>
-                                <form id="chat">
-                                    <input type="text" id="creatChat" placeholder="chat">
-                                    <button type="submit" id="sendMessage" >Send</button>
+
+                                    <input type="text" id="createMessage" placeholder="chat">
+                                    <button type="button" onclick="createMessageB()" id="sendMessage" >Send</button>
                                 </form>
 
 
 
                             </div>
-                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                            <button class="btn btn-primary btn-xl text-uppercase" onclick="closeChatMessage()" data-bs-dismiss="modal" type="button">
                                 <i class="fas fa-times me-1"></i>
                                 Close Project
                             </button>
