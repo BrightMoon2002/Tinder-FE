@@ -7,7 +7,7 @@ let password = document.getElementById('passwordCheckerAccount');
 let password1 = document.getElementById('password2');
 let fullName = document.getElementById('fullnameCheckerAccount');
 let fullName1 = document.getElementById('fullname2');
-let phone = document.getElementById('phoneCheckerAccount');
+let phone = document.getElementsByName('phoneCheckerAccount');
 let phone1 = document.getElementById('phone2');
 let checkbox = document.getElementsByName('invalidCheckBox');
 let error = document.querySelector('.error-404');
@@ -64,7 +64,7 @@ function myFunctionPhone() {
 }
 function myFunctionPhoneStaff() {
     // Get the value of the input field with id="numb"
-    let x = document.getElementById("phoneCheckerAccount").value;
+    let x = document.getElementById("phone2").value;
     // If x is Not a Number or less than one or greater than 10
     let text;
     if (!phone1.validity.valid) {
@@ -166,7 +166,7 @@ function myFunctionFullNameStaff() {
 
 function myFunctionAgreeForm() {
     let text;
-    if (checkbox == false) {
+    if (checkbox.check === false) {
         text = "You need agree";
     } else {
         text = "";
