@@ -108,15 +108,17 @@ function CheckerRegisterAccount() {
         data: JSON.stringify(newCheckerAccount),
         url: "http://localhost:8080/api/accounts",
         success: function (data) {
-                // if (a() == true) {
+
+                if (a() == true) {
                     showCheckerDetails(data.id);
-                // } else {
-                //    myFunctionPhone();
-                //    myFunctionEmail();
-                //    myFunctionUserName();
-                //    myFunctionPassword();
-                //    myFunctionFullName();
-                // }
+                } else {
+                   myFunctionPhone();
+                   myFunctionEmail();
+                   myFunctionUserName();
+                   myFunctionPassword();
+                   myFunctionFullName();
+                }
+
 
         }
     })
@@ -237,7 +239,7 @@ function RegisterAccountStaff() {
                 url: "http://localhost:8080/api/genders",
                 type: "GET",
                 success: function (data) {
-                    // if (b() == true) {
+                    if (b() == true) {
                     let listTypes = [];
                     listTypes = data;
                     let userSelect = document.getElementById("gender");
@@ -250,14 +252,14 @@ function RegisterAccountStaff() {
                         $('#showFormAccountStaff').modal('hide');
                         $('#showFormRegisterForStaff').modal('show');
                     })
-                    //     } else {
-                    //         myFunctionPhoneStaff();
-                    //         myFunctionEmailStaff();
-                    //         myFunctionUserNameStaff();
-                    //         myFunctionPasswordStaff();
-                    //         myFunctionFullNameStaff();
-                    //     }
-                    //
+                        } else {
+                            myFunctionPhoneStaff();
+                            myFunctionEmailStaff();
+                            myFunctionUserNameStaff();
+                            myFunctionPasswordStaff();
+                            myFunctionFullNameStaff();
+                        }
+
                 }
             })
             event.preventDefault();
@@ -266,8 +268,8 @@ function RegisterAccountStaff() {
     })
     event.preventDefault();
 }
-
-async function upload(file, listimg) {
+var listimg = [];
+async function upload(file) {
     let link;
     const ref = firebase.storage().ref();
     const metadata = {
@@ -284,7 +286,14 @@ async function upload(file, listimg) {
     listimg.push(link);
 }
 
-function RegisterStaff() {
+function onChangeIsImage(event){
+    console.log(event.target.files);
+    for (let i = 0; i < event.target.files.length; i++) {
+        upload(event.target.files[i]);
+    }
+}
+async function RegisterStaff() {
+    console.log(listimg)
     let idAccount = $('#idAccount').val()
     let city = $('#city1').val();
     let description = $('#description1').val();
@@ -294,11 +303,6 @@ function RegisterStaff() {
     let height = $('#height1').val();
     let weight = $('#weight1').val();
     let gender = $('#gender').val();
-    var listimg = [];
-    for (let i = 0; i < 3; i++) {
-        let selectedFile = document.getElementById('photo').files[i]
-        upload(selectedFile, listimg);
-    }
     let form = {
         name: name,
         dob: dob,
@@ -349,5 +353,9 @@ function RegisterStaff() {
 
         }
     })
+    console.log(listimg)
     event.preventDefault();
+}
+function khanh(a){
+    console.log(a)
 }
