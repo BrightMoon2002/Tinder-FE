@@ -134,6 +134,7 @@ function showCheckerDetails(account_id) {
 }
 
 function createChecker() {
+
     let name = $('#nameChecker').val();
     let dob = $('#dobChecker').val();
     let gender = $('#genderChecker').val();
@@ -156,9 +157,6 @@ function createChecker() {
         city: city,
         description: description,
         url_facebook: url_facebook,
-        assessment: {
-            id: 1
-        },
         account: {
             id: account_id
         }
@@ -180,6 +178,11 @@ function createChecker() {
     })
     event.preventDefault();
 }
+
+
+
+
+
 
 
 function closeModalCreatedAccountSuccessfully() {
