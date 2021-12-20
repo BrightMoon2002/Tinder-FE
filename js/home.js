@@ -108,7 +108,6 @@ function CheckerRegisterAccount() {
         data: JSON.stringify(newCheckerAccount),
         url: "http://localhost:8080/api/accounts",
         success: function (data) {
-
                 if (a() == true) {
                     showCheckerDetails(data.id);
                 } else {
