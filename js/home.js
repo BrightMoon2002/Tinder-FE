@@ -23,7 +23,7 @@ function signIn() {
             if (data.status != "pending") {
                 if (data.oneRole == '[ROLE_ADMIN]') {
                     localStorage.setItem("user", JSON.stringify(data));
-                    // window.location.href = "/viewWS/index.html"
+                    window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/listBill.html"
                 } else if (data.oneRole == '[ROLE_STAFF]') {
                     $.ajax({
                         url: "http://localhost:8080/api/staffs/find/" + data.id,
@@ -35,7 +35,7 @@ function signIn() {
                         success: function (staff) {
                             localStorage.setItem("staff", JSON.stringify(staff));
                             localStorage.setItem("user", JSON.stringify(data));
-                            window.location.href = "/front_end/Staff.html"
+                            window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/Staff.html"
                         }
                     })
                 } else if (data.oneRole == '[ROLE_CHECKER]') {
@@ -52,7 +52,7 @@ function signIn() {
                             window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
                         },
                         error: function () {
-                            window.location.href = "Casestudy4_Checker_Duy_FrontEnd/error-404.html"
+                            window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/error-404.html"
                         }
                     })
                 }
@@ -108,7 +108,7 @@ function CheckerRegisterAccount() {
         data: JSON.stringify(newCheckerAccount),
         url: "http://localhost:8080/api/accounts",
         success: function (data) {
-                if (a() == true) {
+                if (a() === true) {
                     showCheckerDetails(data.id);
                 } else {
                    myFunctionPhone();
@@ -235,7 +235,7 @@ function RegisterAccountStaff() {
                 url: "http://localhost:8080/api/genders",
                 type: "GET",
                 success: function (data) {
-                    if (a() == true) {
+                    if (b() === true) {
                         let listTypes = [];
                         listTypes = data;
                         let userSelect = document.getElementById("gender");
