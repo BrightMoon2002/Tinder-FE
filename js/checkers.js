@@ -40,7 +40,7 @@ function getAllStaffsForChecker() {
                     '                        <div class="portfolio-hover">\n' +
                     '                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>\n' +
                     '                        </div>\n' +
-                    '                        <img class="img-fluid" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
+                    '                        <img style="height: 302.5px; max-width: 402px"  class="img-fluid" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
                     '                    </a>\n' +
                     '                    <div class="portfolio-caption">\n' +
                     '                        <div class="portfolio-caption-heading">'+data[i].name+'</div>\n' +
@@ -377,6 +377,8 @@ function showOrderStaff(staffId) {
 }
 
 function submitOrder() {
+    let balance = $('#currentBalance').val()
+
     let assessment = "No assessment"
     let defaultAssessment = {
         content: assessment
@@ -399,7 +401,6 @@ function submitOrder() {
                     choices.push(checkbox[i].value)
             }
 
-            console.log("mmmmm " + choices)
 
             let dateOrder = document.querySelector("#timeOrder").value;
             let today = new Date();
@@ -444,6 +445,7 @@ function submitOrder() {
                 url: "http://localhost:8080/api/bills",
                 data: JSON.stringify(newBill),
                 success: function (bill) {
+                    console.log("length: " +choices.length)
                     let amount = 0;
                     for (let i=0; i< choices.length; i++) {
                         let newBillOption = {
@@ -475,7 +477,6 @@ function submitOrder() {
                                     url: "http://localhost:8080/api/options/" + billOption.option.id,
                                     success: function (optionsGet) {
                                         amount += optionsGet.price
-                                        console.log("amountlllll " + amount)
 
                                     }
                                 });
@@ -503,14 +504,64 @@ function submitOrder() {
                                 type: "PUT",
                                 url: "http://localhost:8080/api/bills/amount/" + bill.id +"/" + amount,
                                 success: function (amountSet) {
-                                    $('#modalCreatedAccountSuccessfully').modal('show');
-                                    window.location.href="/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
+                                    console.log("amount: " + amountSet.amount)
+                                    if (amountSet.amount > balance) {
+
+                                        let newStatus = {
+                                            billStatus: {
+                                                id: 5
+                                            }
+                                        }
+
+                                        $.ajax({
+                                            headers: {
+                                                'Accept': 'application/json',
+                                                'Content-Type': 'application/json'
+                                                // 'Authorization': 'Bearer ' + currentUser.token
+                                            },
+                                            type: "PUT",
+                                            url: "http://localhost:8080/api/bills/" + bill.id,
+                                            data: JSON.stringify(newStatus),
+                                            success: function (billStatusResult) {
+                                                $('#billCreatingFormModal').modal('hide')
+                                                $('#cancelledBillModal').modal("show")
+                                            }
+                                        })
+                                    } else {
+                                        let currentBalance = parseInt(balance) - parseInt(amount)
+                                        let newBalance = {
+                                            balance: currentBalance
+                                        }
+                                        $.ajax({
+                                            headers: {
+                                                'Accept': 'application/json',
+                                                'Content-Type': 'application/json'
+                                                // 'Authorization': 'Bearer ' + currentUser.token
+                                            },
+                                            type: "PUT",
+                                            url: "http://localhost:8080/api/accounts/" + currentUser.id,
+                                            data: JSON.stringify(newBalance),
+                                            success: function (success) {
+                                                $('#billCreatingFormModal').modal('hide')
+                                                $('#modalCreatedOrderSuccessfully').modal('show');
+                                                showBalance()
+                                                getBillList2()
+                                                getAllStaffsForChecker()
+                                            }
+                                        })
+
+                                    event.preventDefault()
+
+                                    }
+
                                 }
                             })
+
+                            event.preventDefault()
                         }
                     });
 
-
+                    event.preventDefault()
                 }
             });
             event.preventDefault();
@@ -523,9 +574,13 @@ function submitOrder() {
 
 
 
+    event.preventDefault();
 
 
+}
 
+function closeCancelledBillModal(){
+    $('#cancelledBillModal').modal("hide")
 }
 
 
@@ -657,7 +712,72 @@ event.preventDefault()
 
 }
 
+function showTopup() {
+    $('#modalTopup').modal('show');
+}
+
+function topUp() {
+    $.ajax ({
+        type: "GET",
+        url: "http://localhost:8080/api/accounts/" + currentUser.id,
+        success: function (account) {
+            let amountAccount = account.balance
+            let amountTopUp = $('#amountTopUp').val()
+            let totalBalance = parseInt(amountAccount) + parseInt(amountTopUp)
+            let balance = {
+                balance: totalBalance
+            }
+
+            $.ajax ({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    // 'Authorization': 'Bearer ' + currentUser.token
+                },
+                type: "PUT",
+                url: "http://localhost:8080/api/accounts/" + currentUser.id,
+                data: JSON.stringify(balance),
+                success: function (data) {
+                    $('#modalTopup').modal('hide');
+                    showBalance()
+                }
+            })
+
+        }
+    })
 
 
+    event.preventDefault()
+}
+
+
+function showBalance() {
+    $.ajax ({
+        type: "GET",
+        url: "http://localhost:8080/api/accounts/" + currentUser.id,
+        success: function (data) {
+
+            let balance = numberWithCommas(data.balance)
+
+
+            let content = '<input id="currentBalance" type="hidden" value="'+data.balance+'">' +
+                '                        <div class="d-flex flex-column"><span style="color: white">Balance amount</span>\n' +
+                '                            <p style="color: white"> <span class="text-white" >'+balance+'</span> &#8363;</p>\n' +
+                '                        </div>'
+
+            document.getElementById("accountBalanceShow").innerHTML = content
+
+
+        }
+    })
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+
+showBalance()
 getBillList2()
 getAllStaffsForChecker()

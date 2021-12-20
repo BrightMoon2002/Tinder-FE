@@ -90,7 +90,7 @@ function CheckerRegisterAccount() {
         phone: phone,
         balance: 0,
         status: {
-            id: 2
+            id: 1
         },
         roles: [
             {
