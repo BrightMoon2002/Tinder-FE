@@ -49,7 +49,6 @@ function showInformation() {
     $('#nationality1').val(currentStaff.nationality);
     $('#height1').val(currentStaff.height);
     $('#weight1').val(currentStaff.weight);
-
     $('#showForInforForStaff').modal("show");
     event.preventDefault();
 }
@@ -307,8 +306,7 @@ function getAllBillPending(data) {
 </td>
     </tr>
     `
-    }
-    else if (data.billStatus.id == 4) {
+    } else if (data.billStatus.id == 4) {
         return `
     <tr> 
     <td>${data.staff.name}</td>
@@ -447,7 +445,9 @@ function seeDetailBill(a) {
     })
     event.preventDefault();
 }
-function setStatus(){
+
+function setStatus() {
+    $('#statusStaff').modal("show")
     $.ajax({
         url: "http://localhost:8080/api/status",
         type: "GET",
@@ -456,21 +456,27 @@ function setStatus(){
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + currentUser.token
         },
-        success: function (data){
+        success: function (data) {
             let listStatus = [];
-            listStatus = types;
-            let userSelect = document.getElementById("stt");
-            listStatus.forEach(function (option) {
-                var opt = document.createElement('option');
-                opt.value = option.id;
-                opt.innerHTML = option.nameType;
-                userSelect.appendChild(opt);
-            })
+            listStatus = data;
+            let text = ``;
+            for (let i = 0; i < listStatus.length; i++) {
+                if (data[i].id === 4 || data[i].id === 2) {
+                    text += `
+                    <option name="statusacc" value="${data[i].id}">${data[i].name}</option>
+                `
+                }
+
+            }
+            document.getElementById("stt").innerHTML = text;
         }
     })
+    event.preventDefault();
 }
+
 getGuest()
-function getGuest(){
+
+function getGuest() {
     let idStaff = currentStaff.id;
     $.ajax({
         headers: {
@@ -485,8 +491,10 @@ function getGuest(){
         }
     })
 }
+
 getTotalMoney();
-function getTotalMoney(){
+
+function getTotalMoney() {
     let idStaff = currentStaff.id;
     $.ajax({
         headers: {
@@ -498,15 +506,17 @@ function getTotalMoney(){
         type: "GET",
         success: function (data) {
             let sum = 0;
-            for (let i = 0; i < data.length ; i++) {
+            for (let i = 0; i < data.length; i++) {
                 sum += data[i].amount;
             }
             document.getElementById("totalMoney").innerHTML = `${sum}$`
         }
     })
 }
+
 showAllAssessment()
-function showAllAssessment(){
+
+function showAllAssessment() {
     let idStaff = currentStaff.id;
     console.log("Day la" + idStaff)
     $.ajax({
@@ -517,7 +527,7 @@ function showAllAssessment(){
         },
         url: `http://localhost:8080/api/bills/showByStaff/${idStaff}`,
         type: "GET",
-        success: function (data){
+        success: function (data) {
             let text = `
             <thead>
         <tr>
@@ -530,16 +540,16 @@ function showAllAssessment(){
         <tbody>
             `
             for (let i = 0; i < data.length; i++) {
-                  text += `
+                text += `
                     <tr>
-                        <td>${i+1}</td>
+                        <td>${i + 1}</td>
                         <td>${data[i].checker.account.username}</td>
                         <td>${data[i].assessment.content}</td>
                         <td>${data[i].assessment.rate}</td>
         </tr>
                   `
             }
-            text+= `</tbody>`
+            text += `</tbody>`
             document.getElementById("showAllAssessment").innerHTML = text;
         }
     })
