@@ -108,16 +108,17 @@ function CheckerRegisterAccount() {
         data: JSON.stringify(newCheckerAccount),
         url: "http://localhost:8080/api/accounts",
         success: function (data) {
-            if (a() === true) {
-                showCheckerDetails(data.id);
-            } else {
-                myFunctionPhone();
-                myFunctionEmail();
-                myFunctionUserName();
-                myFunctionPassword();
-                myFunctionFullName();
-                myFunctionAgreeForm();
-            }
+
+                if (a() == true) {
+                    showCheckerDetails(data.id);
+                } else {
+                   myFunctionPhone();
+                   myFunctionEmail();
+                   myFunctionUserName();
+                   myFunctionPassword();
+                   myFunctionFullName();
+                }
+
 
         }
     })
@@ -134,6 +135,7 @@ function showCheckerDetails(account_id) {
 }
 
 function createChecker() {
+
     let name = $('#nameChecker').val();
     let dob = $('#dobChecker').val();
     let gender = $('#genderChecker').val();
@@ -156,9 +158,6 @@ function createChecker() {
         city: city,
         description: description,
         url_facebook: url_facebook,
-        assessment: {
-            id: 1
-        },
         account: {
             id: account_id
         }
@@ -180,6 +179,11 @@ function createChecker() {
     })
     event.preventDefault();
 }
+
+
+
+
+
 
 
 function closeModalCreatedAccountSuccessfully() {
@@ -235,26 +239,26 @@ function RegisterAccountStaff() {
                 url: "http://localhost:8080/api/genders",
                 type: "GET",
                 success: function (data) {
-                    if (b() === true) {
-                        let listTypes = [];
-                        listTypes = data;
-                        let userSelect = document.getElementById("gender");
-                        listTypes.forEach(function (option) {
-                            var opt = document.createElement('option');
-                            opt.value = option.id;
-                            opt.innerHTML = option.name;
-                            userSelect.appendChild(opt);
-                            $('#idAccount').val(idAccount);
-                            $('#showFormAccountStaff').modal('hide');
-                            $('#showFormRegisterForStaff').modal('show');
-                        })
-                    } else {
-                        myFunctionPhoneStaff();
-                        myFunctionEmailStaff();
-                        myFunctionUserNameStaff();
-                        myFunctionPasswordStaff();
-                        myFunctionFullNameStaff();
-                    }
+                    if (b() == true) {
+                    let listTypes = [];
+                    listTypes = data;
+                    let userSelect = document.getElementById("gender");
+                    listTypes.forEach(function (option) {
+                        var opt = document.createElement('option');
+                        opt.value = option.id;
+                        opt.innerHTML = option.name;
+                        userSelect.appendChild(opt);
+                        $('#idAccount').val(idAccount);
+                        $('#showFormAccountStaff').modal('hide');
+                        $('#showFormRegisterForStaff').modal('show');
+                    })
+                        } else {
+                            myFunctionPhoneStaff();
+                            myFunctionEmailStaff();
+                            myFunctionUserNameStaff();
+                            myFunctionPasswordStaff();
+                            myFunctionFullNameStaff();
+                        }
 
                 }
             })

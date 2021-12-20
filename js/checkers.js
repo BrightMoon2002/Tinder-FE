@@ -377,93 +377,61 @@ function showOrderStaff(staffId) {
 }
 
 function submitOrder() {
-    let checkbox = document.getElementsByName('optionSelect');
-
-    let choices = []
-    for (let i=0; i< checkbox.length; i++) {
-        if (checkbox[i].checked === true)
-        choices.push(checkbox[i].value)
-    }
-
-    console.log("mmmmm " + choices)
-
-    let dateOrder = document.querySelector("#timeOrder").value;
-    let today = new Date();
-
-    let dd = String(today.getDate()).padStart(2, '0');
-    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = today.getFullYear();
-    let timeOrder = yyyy + '-' + mm + '-' + dd +'T'+dateOrder;
-
-
-
-
-    let dateEnd = document.querySelector("#timeEnd").value;
-    let timeEnd = yyyy + '-' + mm + '-' + dd +'T'+dateEnd;
-    let staffClickedId = document.querySelector("#staffClickedId").value;
-    let checkerClickedId = document.querySelector("#checkerClickedId").value;
-
-    let newBill = {
-        dateOrder: timeOrder,
-        dateEnd: timeEnd,
-        staff :{
-            id: staffClickedId
-        },
-        checker: {
-            id: checkerClickedId
-        },
-        billStatus: {
-            id: 1
-        }
+    let assessment = "No assessment"
+    let defaultAssessment = {
+        content: assessment
     }
 
     $.ajax({
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-            // 'Authorization': 'Bearer ' + currentUser.token
         },
+        url: "http://localhost:8080/api/assessments",
         type: "POST",
-        url: "http://localhost:8080/api/bills",
-        data: JSON.stringify(newBill),
-        success: function (bill) {
-            let amount = 0;
-            for (let i=0; i< choices.length; i++) {
-                let newBillOption = {
-                    bill: {
-                        id: bill.id
-                    },
-                    option: {
-                        id: choices[i]
-                    }
-                }
-                $.ajax ({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                        // 'Authorization': 'Bearer ' + currentUser.token
-                    },
-                    type: "POST",
-                    url: "http://localhost:8080/api/billOptions",
-                    data: JSON.stringify(newBillOption),
-                    success: function (billOption) {
-                        console.log(billOption)
-                       $.ajax ({
-                           headers: {
-                               'Accept': 'application/json',
-                               'Content-Type': 'application/json'
-                               // 'Authorization': 'Bearer ' + currentUser.token
-                           },
-                           type: "GET",
-                           url: "http://localhost:8080/api/options/" + billOption.option.id,
-                           success: function (optionsGet) {
-                                amount += optionsGet.price
-                               console.log("amountlllll " + amount)
+        data: JSON.stringify(defaultAssessment),
+        success: function (assessmentResult) {
+            let checkbox = document.getElementsByName('optionSelect');
 
-                           }
-                       });
-                    }
-                });
+            let choices = []
+            for (let i=0; i< checkbox.length; i++) {
+                if (checkbox[i].checked === true)
+                    choices.push(checkbox[i].value)
+            }
+
+            console.log("mmmmm " + choices)
+
+            let dateOrder = document.querySelector("#timeOrder").value;
+            let today = new Date();
+
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            let yyyy = today.getFullYear();
+            let timeOrder = yyyy + '-' + mm + '-' + dd +'T'+dateOrder;
+
+
+
+
+            let dateEnd = document.querySelector("#timeEnd").value;
+            let timeEnd = yyyy + '-' + mm + '-' + dd +'T'+dateEnd;
+            let staffClickedId = document.querySelector("#staffClickedId").value;
+            let checkerClickedId = document.querySelector("#checkerClickedId").value;
+
+            let newBill = {
+                dateOrder: timeOrder,
+                dateEnd: timeEnd,
+                staff :{
+                    id: staffClickedId
+                },
+                checker: {
+                    id: checkerClickedId
+                },
+                billStatus: {
+                    id: 1
+                },
+                assessment: {
+                    id: assessmentResult.id
+                }
             }
 
             $.ajax({
@@ -472,10 +440,48 @@ function submitOrder() {
                     'Content-Type': 'application/json'
                     // 'Authorization': 'Bearer ' + currentUser.token
                 },
-                type: "GET",
-                url: "http://localhost:8080/api/bills/hour/" + bill.id,
-                success: function (hourDiff) {
-                    amount = hourDiff*amount
+                type: "POST",
+                url: "http://localhost:8080/api/bills",
+                data: JSON.stringify(newBill),
+                success: function (bill) {
+                    let amount = 0;
+                    for (let i=0; i< choices.length; i++) {
+                        let newBillOption = {
+                            bill: {
+                                id: bill.id
+                            },
+                            option: {
+                                id: choices[i]
+                            }
+                        }
+                        $.ajax ({
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                                // 'Authorization': 'Bearer ' + currentUser.token
+                            },
+                            type: "POST",
+                            url: "http://localhost:8080/api/billOptions",
+                            data: JSON.stringify(newBillOption),
+                            success: function (billOption) {
+                                console.log(billOption)
+                                $.ajax ({
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json'
+                                        // 'Authorization': 'Bearer ' + currentUser.token
+                                    },
+                                    type: "GET",
+                                    url: "http://localhost:8080/api/options/" + billOption.option.id,
+                                    success: function (optionsGet) {
+                                        amount += optionsGet.price
+                                        console.log("amountlllll " + amount)
+
+                                    }
+                                });
+                            }
+                        });
+                    }
 
                     $.ajax({
                         headers: {
@@ -483,20 +489,43 @@ function submitOrder() {
                             'Content-Type': 'application/json'
                             // 'Authorization': 'Bearer ' + currentUser.token
                         },
-                        type: "PUT",
-                        url: "http://localhost:8080/api/bills/amount/" + bill.id +"/" + amount,
-                        success: function (amountSet) {
-                            $('#modalCreatedAccountSuccessfully').modal('show');
-                            window.location.href="/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
+                        type: "GET",
+                        url: "http://localhost:8080/api/bills/hour/" + bill.id,
+                        success: function (hourDiff) {
+                            amount = hourDiff*amount
+
+                            $.ajax({
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                    // 'Authorization': 'Bearer ' + currentUser.token
+                                },
+                                type: "PUT",
+                                url: "http://localhost:8080/api/bills/amount/" + bill.id +"/" + amount,
+                                success: function (amountSet) {
+                                    $('#modalCreatedAccountSuccessfully').modal('show');
+                                    window.location.href="/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
+                                }
+                            })
                         }
-                    })
+                    });
+
+
                 }
             });
-
-
+            event.preventDefault();
         }
     });
-    event.preventDefault();
+
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -544,7 +573,7 @@ function getBillList2() {
 
 function getBillChecker2(bill) {
     let content = "";
-    if (bill.billStatus.id === 6) {
+    if (bill.billStatus.id === 4) {
         content =         `<td>\n` +
             `<button id="viewOne" class="close" data-dismiss="alert" onclick="createAssessment(this)" value="${bill.id}">\n` +
             ` <span aria-hidden="true">Assessment</span>\n` +
