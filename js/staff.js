@@ -554,3 +554,42 @@ function showAllAssessment() {
         }
     })
 }
+
+function showMessageStaff() {
+    let idUser = currentUser.id;
+    console.log("Day la" + idUser)
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        url: "http://localhost:8080/api/messages/showSender/" + idUser,
+        type: "GET",
+        success: function (data) {
+        let content = '        <caption>Chat log</caption>\n' +
+            '        <tr>\n' +
+            '            <th>\n' +
+            '                UserName:\n' +
+            '            </th>\n' +
+            '<th>show</th>' +
+            '        </tr>\n';
+            for (let i = 0; i < data.length; i++) {
+                content += getSender(data[i]);
+            }
+            console.log(content)
+            document.getElementById('chatMessageStaff').innerHTML = content;
+
+        }
+    });
+}
+function getSender(data) {
+    return `<tr><td>${data.nameSender}</td>\n` +
+        `<td><button id="idReceiver" onclick="showMessageDetails(this)" value="${data.idSender}">View</button></td></tr>`;
+}
+function showMessageDetails() {
+
+}
+
+showMessageStaff();
+

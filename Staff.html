@@ -422,6 +422,73 @@
 
     </table>
 </section>
+<!-----------Chat message-------------->
+<div class="portfolio-modal modal fade" id="portfolioModalChat" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal"/>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="modal-body">
+                            <!-- Chat-->
+                            <h2 class="text-uppercase">Chat message</h2>
+                            <div>
+                                <form>
+                                    <table id="chatMessage">
+                                        <caption>Chat room</caption>
+                                        <tr>
+                                            <th>user name</th>
+                                            <th>chat log</th>
+                                        </tr>
+                                    </table>
+
+                                    <input type="text" id="createMessage" placeholder="chat">
+                                    <button type="button" onclick="createMessageB()" id="sendMessage" >Send</button>
+                                </form>
+
+
+
+                            </div>
+                            <button class="btn btn-primary btn-xl text-uppercase" onclick="closeChatMessage()" data-bs-dismiss="modal" type="button">
+                                <i class="fas fa-times me-1"></i>
+                                Close Project
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-------------tableChat----------->
+<div>
+    <table id="chatMessageStaff">
+        <caption>Chat log</caption>
+        <tr>
+            <th>
+                UserName:
+            </th>
+            <th>
+                view:
+            </th>
+        </tr>
+
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <script src="./js/chart.js"></script>
 <script src="jsBill/jquery.min.js"></script>
 <script src="jsBill/popper.js"></script>
