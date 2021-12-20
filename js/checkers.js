@@ -27,6 +27,11 @@ function getAllStaffsForChecker() {
 
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/staffs/allstaff",
         success: function (data) {
@@ -40,7 +45,7 @@ function getAllStaffsForChecker() {
                     '                        <div class="portfolio-hover">\n' +
                     '                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>\n' +
                     '                        </div>\n' +
-                    '                        <img class="img-fluid" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
+                    '                        <img style="height: 302.5px; max-width: 402px"  class="img-fluid" src="'+data[i].avatarUrl1+'" alt="..."/>\n' +
                     '                    </a>\n' +
                     '                    <div class="portfolio-caption">\n' +
                     '                        <div class="portfolio-caption-heading">'+data[i].name+'</div>\n' +
@@ -100,6 +105,11 @@ function getAllStaffsForCheckerByMale() {
 
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/staffs/gender/1",
         success: function (data) {
@@ -173,6 +183,11 @@ function getAllStaffsForCheckerByFemale() {
 
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/staffs/gender/2",
         success: function (data) {
@@ -244,6 +259,11 @@ function getAllStaffsForCheckerByFemale() {
 
 function getStaffOptions(id) {
     $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api//api/options/"+id,
         success: function (data) {
@@ -257,6 +277,11 @@ function getStaffOptionsId(id) {
     let optionContent ="";
 
     $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/staffoption/staff/"+id,
         success: function (data) {
@@ -278,6 +303,11 @@ function showOrderStaff(staffId) {
     let currentChecker = JSON.parse(localStorage.getItem("checkers"))
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/checkers/" + currentChecker.id,
         success: function (checker) {
@@ -377,6 +407,8 @@ function showOrderStaff(staffId) {
 }
 
 function submitOrder() {
+    let balance = $('#currentBalance').val()
+
     let assessment = "No assessment"
     let defaultAssessment = {
         content: assessment
@@ -385,7 +417,8 @@ function submitOrder() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         url: "http://localhost:8080/api/assessments",
         type: "POST",
@@ -399,7 +432,6 @@ function submitOrder() {
                     choices.push(checkbox[i].value)
             }
 
-            console.log("mmmmm " + choices)
 
             let dateOrder = document.querySelector("#timeOrder").value;
             let today = new Date();
@@ -437,13 +469,14 @@ function submitOrder() {
             $.ajax({
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                    // 'Authorization': 'Bearer ' + currentUser.token
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token
                 },
                 type: "POST",
                 url: "http://localhost:8080/api/bills",
                 data: JSON.stringify(newBill),
                 success: function (bill) {
+                    console.log("length: " +choices.length)
                     let amount = 0;
                     for (let i=0; i< choices.length; i++) {
                         let newBillOption = {
@@ -457,8 +490,8 @@ function submitOrder() {
                         $.ajax ({
                             headers: {
                                 'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                                // 'Authorization': 'Bearer ' + currentUser.token
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + currentUser.token
                             },
                             type: "POST",
                             url: "http://localhost:8080/api/billOptions",
@@ -468,14 +501,13 @@ function submitOrder() {
                                 $.ajax ({
                                     headers: {
                                         'Accept': 'application/json',
-                                        'Content-Type': 'application/json'
-                                        // 'Authorization': 'Bearer ' + currentUser.token
+                                        'Content-Type': 'application/json',
+                                        'Authorization': 'Bearer ' + currentUser.token
                                     },
                                     type: "GET",
                                     url: "http://localhost:8080/api/options/" + billOption.option.id,
                                     success: function (optionsGet) {
                                         amount += optionsGet.price
-                                        console.log("amountlllll " + amount)
 
                                     }
                                 });
@@ -486,8 +518,8 @@ function submitOrder() {
                     $.ajax({
                         headers: {
                             'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                            // 'Authorization': 'Bearer ' + currentUser.token
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + currentUser.token
                         },
                         type: "GET",
                         url: "http://localhost:8080/api/bills/hour/" + bill.id,
@@ -497,20 +529,70 @@ function submitOrder() {
                             $.ajax({
                                 headers: {
                                     'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                    // 'Authorization': 'Bearer ' + currentUser.token
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + currentUser.token
                                 },
                                 type: "PUT",
                                 url: "http://localhost:8080/api/bills/amount/" + bill.id +"/" + amount,
                                 success: function (amountSet) {
-                                    $('#modalCreatedAccountSuccessfully').modal('show');
-                                    window.location.href="/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
+                                    console.log("amount: " + amountSet.amount)
+                                    if (amountSet.amount > balance) {
+
+                                        let newStatus = {
+                                            billStatus: {
+                                                id: 5
+                                            }
+                                        }
+
+                                        $.ajax({
+                                            headers: {
+                                                'Accept': 'application/json',
+                                                'Content-Type': 'application/json',
+                                                'Authorization': 'Bearer ' + currentUser.token
+                                            },
+                                            type: "PUT",
+                                            url: "http://localhost:8080/api/bills/" + bill.id,
+                                            data: JSON.stringify(newStatus),
+                                            success: function (billStatusResult) {
+                                                $('#billCreatingFormModal').modal('hide')
+                                                $('#cancelledBillModal').modal("show")
+                                            }
+                                        })
+                                    } else {
+                                        let currentBalance = parseInt(balance) - parseInt(amount)
+                                        let newBalance = {
+                                            balance: currentBalance
+                                        }
+                                        $.ajax({
+                                            headers: {
+                                                'Accept': 'application/json',
+                                                'Content-Type': 'application/json',
+                                                'Authorization': 'Bearer ' + currentUser.token
+                                            },
+                                            type: "PUT",
+                                            url: "http://localhost:8080/api/accounts/" + currentUser.id,
+                                            data: JSON.stringify(newBalance),
+                                            success: function (success) {
+                                                $('#billCreatingFormModal').modal('hide')
+                                                $('#modalCreatedOrderSuccessfully').modal('show');
+                                                showBalance()
+                                                getBillList2()
+                                                getAllStaffsForChecker()
+                                            }
+                                        })
+
+                                    event.preventDefault()
+
+                                    }
+
                                 }
                             })
+
+                            event.preventDefault()
                         }
                     });
 
-
+                    event.preventDefault()
                 }
             });
             event.preventDefault();
@@ -523,15 +605,24 @@ function submitOrder() {
 
 
 
+    event.preventDefault();
 
 
+}
 
+function closeCancelledBillModal(){
+    $('#cancelledBillModal').modal("hide")
 }
 
 
 
 function getBillList2() {
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/bills/showByChecker/" + currentChecker.id,
         success: function (data) {
@@ -618,6 +709,11 @@ function createAssessment() {
     let billIdAssessment = document.getElementById("billIdAssessment").value;
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
 
         type: "GET",
         url: "http://localhost:8080/api/bills/" + billIdAssessment,
@@ -637,8 +733,8 @@ function createAssessment() {
             $.ajax({
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                    // 'Authorization': 'Bearer ' + currentUser.token
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token
                 },
                 type: "PUT",
                 url: "http://localhost:8080/api/assessments/" +bill.assessment.id,
@@ -657,7 +753,119 @@ event.preventDefault()
 
 }
 
+function showTopup() {
+    $('#modalTopup').modal('show');
+}
+
+function topUp() {
+    $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/api/accounts/" + currentUser.id,
+        success: function (account) {
+            let amountAccount = account.balance
+            let amountTopUp = $('#amountTopUp').val()
+            let totalBalance = parseInt(amountAccount) + parseInt(amountTopUp)
+            let balance = {
+                balance: totalBalance
+            }
+
+            $.ajax ({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token
+                },
+                type: "PUT",
+                url: "http://localhost:8080/api/accounts/" + currentUser.id,
+                data: JSON.stringify(balance),
+                success: function (data) {
+                    $('#modalTopup').modal('hide');
+                    showBalance()
+                }
+            })
+
+        }
+    })
 
 
+    event.preventDefault()
+}
+
+
+function showBalance() {
+    $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/api/accounts/" + currentUser.id,
+        success: function (data) {
+
+            let balance = numberWithCommas(data.balance)
+
+
+            let content = '<input id="currentBalance" type="hidden" value="'+data.balance+'">' +
+                '                        <div class="d-flex flex-column"><span style="color: white">Balance amount</span>\n' +
+                '                            <p style="color: white"> <span class="text-white" >'+balance+'</span> &#8363;</p>\n' +
+                '                        </div>'
+
+            document.getElementById("accountBalanceShow").innerHTML = content
+
+
+        }
+    })
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function showLogChatWithStaff(id) {
+    showChatForm()
+    let idUser = currentChecker.id
+    let idView = $('#idView').val();
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        type: "GET",
+        url: "http://localhost:8080/api/messages/" + idUser + "/" + idView,
+        success: function (data) {
+            portfolioModalChat
+            let contentTable = '';
+            for (let i = 0; i < data.length; i++) {
+                contentTable += getChat(data[i]);
+                console.log(contentTable)
+            }
+            let content = '<table>\n'+
+                '<tr>\n' +
+                   ' <th>Chat log ${data.username}</th>\n' +
+                contentTable +
+                '</tr>\n' +
+            '</table>';
+
+            document.getElementById('chatMessage').innerHTML = content;
+        }
+    });
+    event.preventDefault();
+ }
+function getChat(data) {
+    return `<tr><td>${data.nameSend}</td><td>${data.content}</td>\n`+
+        `<td>${data.nameReceiver}</td><td>${data.dateSend}</td></tr>`
+}
+
+function showChatForm() {
+    $('#portfolioModalChat').modal("show");
+}
+
+showBalance()
 getBillList2()
 getAllStaffsForChecker()
