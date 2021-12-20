@@ -36,14 +36,14 @@ function b () {
 
 
 function a() {
-    if (email.validity.valid && userName.validity.valid && fullName.validity.valid && password.validity.valid && !phone.validity.valid ) {
+    if (email.validity.valid && userName.validity.valid && fullName.validity.valid && password.validity.valid && phone.validity.valid ) {
         return true;
     } else {
         return false;
     }
 }
 function b() {
-    if (email1.validity.valid && userName1.validity.valid && fullName1.validity.valid && password1.validity.valid && !phone1.validity.valid ) {
+    if (email1.validity.valid && userName1.validity.valid && fullName1.validity.valid && password1.validity.valid && phone1.validity.valid ) {
         return true;
     } else {
         return false;

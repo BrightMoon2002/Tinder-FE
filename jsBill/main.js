@@ -6,21 +6,22 @@
 
 })(jQuery);
 let currentUser = JSON.parse(localStorage.getItem("user"));
-if (currentUser == null || currentUser.token == null) {
-    window.location.href = "/front_end/index.html";
+let checker = JSON.parse(localStorage.getItem("checker"));
+let staff = JSON.parse(localStorage.getItem("staff"));
+if (currentUser == null || currentUser.token == null ||checker != null || staff != null ) {
+    window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/listBill.html";
 }
 
 function checkToken() {
     let currentUser = JSON.parse(localStorage.getItem("user"));
     if (currentUser == null || currentUser.token == null) {
-        window.location.href = "/front_end/index.html";
+        window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/index.html";
     }
 }
 
 function logout() {
     localStorage.removeItem("user");
-    localStorage.removeItem("checker");
-    checkAut();
+    checkToken();
 }
 
 function showListBill() {
