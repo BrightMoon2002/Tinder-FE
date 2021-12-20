@@ -72,6 +72,42 @@
 
 <!--    <link rel="stylesheet" href="cssBill/style.css">-->
 
+    <style>
+        /* Chat containers */
+        .containerChat {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        /* Darker chat container */
+        .darker {
+            border-color: #ccc;
+            background-color: #ddd;
+        }
+
+        /* Clear floats */
+        .containerChat::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+
+        /* Style time text */
+        .time-right {
+            float: right;
+            color: #aaa;
+        }
+
+        /* Style time text */
+        .time-left {
+            float: left;
+            color: #999;
+        }
+    </style>
 
 </head>
 <body id="page-top">
@@ -606,28 +642,38 @@
                     <div class="col-lg-8">
                         <div class="modal-body">
                             <!-- Chat-->
-                            <h2 class="text-uppercase">Chat message</h2>
+                            <h4 class="text-uppercase">Chat message</h4>
                             <div>
                                 <form>
-                                    <table id="chatMessage">
-                                        <caption>Chat room</caption>
-                                        <tr>
-                                            <th>user name</th>
-                                            <th>chat log</th>
-                                        </tr>
-                                    </table>
+<!--                                    <table id="chatMessage">-->
+<!--                                        <caption>Chat room</caption>-->
+<!--                                        <tr>-->
+<!--                                            <th>Username</th>-->
+<!--                                            <th>Chat Log</th>-->
+<!--                                        </tr>-->
+<!--                                    </table>-->
 
-                                    <input type="text" id="createMessage" placeholder="chat">
-                                    <button type="button" onclick="createMessageB()" id="sendMessage" >Send</button>
+                                    <div id="chatMessage">
+
+                                    </div>
+
+
+
+                                    <br>
+                                    <br>
+                                    <div class="panel-footer">
+                                        <div class="input-group">
+                                            <input class="form-control input-sm chat_input" type="text" id="createMessage" placeholder="Type your message...">
+                                            <span class="input-group-btn">
+                                                <button style="height: 60px" class="btn btn-primary btn-sm" type="button" onclick="createMessageB()" id="sendMessage" >Send</button>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </form>
 
 
 
                             </div>
-                            <button class="btn btn-primary btn-xl text-uppercase" onclick="closeChatMessage()" data-bs-dismiss="modal" type="button">
-                                <i class="fas fa-times me-1"></i>
-                                Close Project
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -637,13 +683,6 @@
 </div>
 
 <!-------------tableChat----------->
-<div>
-    <table>
-        <caption>Chat log</caption>
-
-    </table>
-</div>
-
 
 
 

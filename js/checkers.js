@@ -79,7 +79,11 @@ function getAllStaffsForChecker() {
                     '                                    <img class="img-fluid" src="' + data[i].avatarUrl3 + '" alt="..."/>' +
                     '                                </li>\n' +
                     '                            </ul>\n' +
-                    '                        <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">chat</button>\n' +
+                    '                            <center>\n' +
+                    '                               <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">CHAT</button>\n' +
+                    '                            </center>\n' +
+                    '                            </br>\n' +
+                    '                            </br>\n' +
                     '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff(' + data[i].id + ')">\n' +
                     '                                \n' +
                     '                                Order\n' +
@@ -158,7 +162,11 @@ function getAllStaffsForCheckerByMale() {
                     '                                    <img class="img-fluid" src="' + data[i].avatarUrl3 + '" alt="..."/>' +
                     '                                </li>\n' +
                     '                            </ul>\n' +
-                    '                        <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">chat</button>\n' +
+                    '                            <center>\n' +
+                    '                               <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">CHAT</button>\n' +
+                    '                            </center>\n' +
+                    '                            </br>\n' +
+                    '                            </br>\n' +
                     '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff(' + data[i].id + ')">\n' +
                     '                                \n' +
                     '                                Order\n' +
@@ -237,7 +245,11 @@ function getAllStaffsForCheckerByFemale() {
                     '                                    <img class="img-fluid" src="' + data[i].avatarUrl3 + '" alt="..."/>' +
                     '                                </li>\n' +
                     '                            </ul>\n' +
-                    '                        <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">chat</button>\n' +
+                    '                            <center>\n' +
+                    '                               <button class="btn btn-primary" id="btnView"  type="submit" onclick="showLogChatWithStaff(this)" value="' + data[i].idAccount + '">CHAT</button>\n' +
+                    '                            </center>\n' +
+                    '                            </br>\n' +
+                    '                            </br>\n' +
                     '                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button" onclick="showOrderStaff(' + data[i].id + ')">\n' +
                     '                                \n' +
                     '                                Order\n' +
@@ -832,16 +844,14 @@ function showLogChatWithStaff(id) {
         type: "GET",
         url: "http://localhost:8080/api/messages/" + idUser + "/" + idView,
         success: function (data) {
+
             let btn = document.getElementById('btnView');
             btn.setAttribute("idReceiver", idView);
-            let contentTable = '';
 
-            let content = '<tr>\n' +
-                ' <th>Chat log </th>\n' +
-                '</tr>\n' +
-                '</table>';
+            let content = '';
             for (let i = 0; i < data.length; i++) {
-                content += getChat(data[i], idView);
+
+                content += getChat(data[i], idView, idUser);
             }
 
             document.getElementById('chatMessage').innerHTML = content;
@@ -850,10 +860,25 @@ function showLogChatWithStaff(id) {
     event.preventDefault();
 }
 
-function getChat(data, idView) {
-    return `<tr><td>${data.nameSend} send</td><td>${data.content}</td>\n` +
-        `<td>to ${data.nameReceiver}</td><td>at ${data.dateSend}</td></tr>\n`+
-        `<input hidden id="idView" value="${idView}">`
+function getChat(data, idView, idUser) {
+
+    let content = ''
+    if (currentUser.username === data.nameSend) {
+        content ='<div class="containerChat">\n' +
+            '<h5 style="text-align: left">'+data.nameSend+'</h5>'+
+            '  <p style="text-align: left">'+data.content+'</p>\n' +
+            '  <span class="time-right">'+data.dateSend+'</span>\n' +
+            '</div>'
+    } else {
+        content ='<div class="containerChat darker ">\n' +
+            '<h5 style="text-align: right">'+data.nameSend+'</h5>'+
+            '  <p style="text-align: right">'+data.content+'</p>\n' +
+            '  <span class="time-right">'+data.dateSend+'</span>\n' +
+            '</div>'
+    }
+
+
+    return content
 }
 
 function showChatForm() {
