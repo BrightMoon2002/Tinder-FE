@@ -49,6 +49,7 @@ function showInformation() {
     $('#nationality1').val(currentStaff.nationality);
     $('#height1').val(currentStaff.height);
     $('#weight1').val(currentStaff.weight);
+
     $('#showForInforForStaff').modal("show");
     event.preventDefault();
 }
@@ -503,5 +504,43 @@ function getTotalMoney(){
             document.getElementById("totalMoney").innerHTML = `${sum}$`
         }
     })
-    event.preventDefault();
+}
+showAllAssessment()
+function showAllAssessment(){
+    let idStaff = currentStaff.id;
+    console.log("Day la" + idStaff)
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
+        url: `http://localhost:8080/api/bills/showByStaff/${idStaff}`,
+        type: "GET",
+        success: function (data){
+            let text = `
+            <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Account name</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Rate</th>
+        </tr>
+        </thead>
+        <tbody>
+            `
+            for (let i = 0; i < data.length; i++) {
+                  text += `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td>${data[i].checker.account.username}</td>
+                        <td>${data[i].assessment.content}</td>
+                        <td>${data[i].assessment.rate}</td>
+        </tr>
+                  `
+            }
+            text+= `</tbody>`
+            document.getElementById("showAllAssessment").innerHTML = text;
+        }
+    })
 }

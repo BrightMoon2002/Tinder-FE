@@ -94,7 +94,14 @@
                 <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 <li class="nav-item">
+                    <button type="button" class="btn btn-success" onclick="showTopup()">Top Up</button>
+                </li>
+                <li class="nav-item">
                     <button type="button" class="btn btn-success" onclick="logout()">Logout</button>
+                </li>
+                <li class="nav-item">
+                    <div id="accountBalanceShow">
+                    </div>
                 </li>
             </ul>
         </div>
@@ -142,7 +149,7 @@
     </div>
 </section>
 <!-- Staffs Grid-->
-<section class="page-section bg-light" id="staffs">
+<section class="page-section bg-light" id="portfolio">
     <div class="container">
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Staffs</h2>
@@ -169,14 +176,119 @@
         <br>
         <br>
         </center>
-        <div class="row">
-            <div id="staffList">
+        <div class="row" id="staffList">
 
-            </div>
         </div>
     </div>
 </section>
 <!-- Bills-->
+
+
+<!--<section class="page-section bg-light" id="portfolio">-->
+<!--    <div class="container">-->
+<!--        <div class="text-center">-->
+<!--            <h2 class="section-heading text-uppercase">Portfolio</h2>-->
+<!--            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-4 col-sm-6 mb-4">-->
+<!--                &lt;!&ndash; Portfolio item 1&ndash;&gt;-->
+<!--                <div class="portfolio-item">-->
+<!--                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">-->
+<!--                        <div class="portfolio-hover">-->
+<!--                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>-->
+<!--                        </div>-->
+<!--                        <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..."/>-->
+<!--                    </a>-->
+<!--                    <div class="portfolio-caption">-->
+<!--                        <div class="portfolio-caption-heading">Threads</div>-->
+<!--                        <div class="portfolio-caption-subheading text-muted">Illustration</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-sm-6 mb-4">-->
+<!--                &lt;!&ndash; Portfolio item 2&ndash;&gt;-->
+<!--                <div class="portfolio-item">-->
+<!--                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal2">-->
+<!--                        <div class="portfolio-hover">-->
+<!--                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>-->
+<!--                        </div>-->
+<!--                        <img class="img-fluid" src="assets/img/portfolio/2.jpg" alt="..."/>-->
+<!--                    </a>-->
+<!--                    <div class="portfolio-caption">-->
+<!--                        <div class="portfolio-caption-heading">Explore</div>-->
+<!--                        <div class="portfolio-caption-subheading text-muted">Graphic Design</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-sm-6 mb-4">-->
+<!--                &lt;!&ndash; Portfolio item 3&ndash;&gt;-->
+<!--                <div class="portfolio-item">-->
+<!--                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal3">-->
+<!--                        <div class="portfolio-hover">-->
+<!--                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>-->
+<!--                        </div>-->
+<!--                        <img class="img-fluid" src="assets/img/portfolio/3.jpg" alt="..."/>-->
+<!--                    </a>-->
+<!--                    <div class="portfolio-caption">-->
+<!--                        <div class="portfolio-caption-heading">Finish</div>-->
+<!--                        <div class="portfolio-caption-subheading text-muted">Identity</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">-->
+<!--                &lt;!&ndash; Portfolio item 4&ndash;&gt;-->
+<!--                <div class="portfolio-item">-->
+<!--                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal4">-->
+<!--                        <div class="portfolio-hover">-->
+<!--                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>-->
+<!--                        </div>-->
+<!--                        <img class="img-fluid" src="assets/img/portfolio/4.jpg" alt="..."/>-->
+<!--                    </a>-->
+<!--                    <div class="portfolio-caption">-->
+<!--                        <div class="portfolio-caption-heading">Lines</div>-->
+<!--                        <div class="portfolio-caption-subheading text-muted">Branding</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">-->
+<!--                &lt;!&ndash; Portfolio item 5&ndash;&gt;-->
+<!--                <div class="portfolio-item">-->
+<!--                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal5">-->
+<!--                        <div class="portfolio-hover">-->
+<!--                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>-->
+<!--                        </div>-->
+<!--                        <img class="img-fluid" src="assets/img/portfolio/5.jpg" alt="..."/>-->
+<!--                    </a>-->
+<!--                    <div class="portfolio-caption">-->
+<!--                        <div class="portfolio-caption-heading">Southwest</div>-->
+<!--                        <div class="portfolio-caption-subheading text-muted">Website Design</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-lg-4 col-sm-6">-->
+<!--                &lt;!&ndash; Portfolio item 6&ndash;&gt;-->
+<!--                <div class="portfolio-item">-->
+<!--                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal6">-->
+<!--                        <div class="portfolio-hover">-->
+<!--                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>-->
+<!--                        </div>-->
+<!--                        <img class="img-fluid" src="assets/img/portfolio/6.jpg" alt="..."/>-->
+<!--                    </a>-->
+<!--                    <div class="portfolio-caption">-->
+<!--                        <div class="portfolio-caption-heading">Window</div>-->
+<!--                        <div class="portfolio-caption-subheading text-muted">Photography</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+
+
+
+
 <section class="page-section" >
     <div class="container">
         <div class="text-center">
@@ -480,6 +592,115 @@
                 </div>
             </div>
             <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal" onclick="closeModalCreatedAccountSuccessfully()">Close</button></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalCreatedOrderSuccessfully" class="modal fade" data-backdrop="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title text-md">Message: </div> <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="p-4 text-center">
+                    <p>Please wait for our admin to verify your order!!</p>
+                </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal" onclick="closeModalCreatedOrderSuccessfully()">Close</button></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalCreatedAssessment" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleCheckerOrderForm">Bill Assessment</h5>
+            </div>
+            <!-- body -->
+            <div class="modal-body">
+                <input type="hidden" id="billIdAssessment">
+                <form class="row g-3 needs-validation" novalidate>
+                    <div class="col-md-6">
+                        <label for="assessmentContent" class="form-label">Content</label>
+                        <input type="text" class="form-control"  required id="assessmentContent" name="usernameCheckerAccount">
+                        <span style="color: red" id="error2" class="error" aria-live="polite"></span>
+                        <div class="invalid-feedback">
+                            Please provide a valid username or already exist.
+                        </div>
+                    </div>
+                    <div>
+                    <label for="rateAssessment">Rate</label>
+                    <select id="rateAssessment">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit" onclick="createAssessment()">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="modalTopup" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalTopup">Top Up</h5>
+            </div>
+            <!-- body -->
+            <div class="modal-body">
+                <form class="row g-3 needs-validation" novalidate>
+                    <div class="col-md-6">
+                        <label for="amountTopUp" class="form-label">Amount</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" aria-describedby="inputGroupPrepend" required id="amountTopUp" name="amountTopUp">
+                            <span class="input-group-text" id="inputGroupPrepend">đ</span>
+                            <span class="error" aria-live="polite"><p style="color: red" id="error1"></p></span>
+                            <div class="invalid-feedback">
+                                Amount is not correct.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit" onclick="topUp()">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="cancelledBillModal" class="modal fade" data-backdrop="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title text-md">Message: </div> <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="p-4 text-center">
+                    <p>Your bill is cancelled because the bill charge fee is more than your balance. Please top up your balance first before using our services. Thank you for your interest in our services!!</p>
+                </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal" onclick="closeCancelledBillModal()">Close</button></div>
         </div>
     </div>
 </div>
