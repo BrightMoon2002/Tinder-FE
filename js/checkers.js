@@ -27,6 +27,11 @@ function getAllStaffsForChecker() {
 
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/staffs/allstaff",
         success: function (data) {
@@ -100,6 +105,11 @@ function getAllStaffsForCheckerByMale() {
 
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/staffs/gender/1",
         success: function (data) {
@@ -173,6 +183,11 @@ function getAllStaffsForCheckerByFemale() {
 
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/staffs/gender/2",
         success: function (data) {
@@ -244,6 +259,11 @@ function getAllStaffsForCheckerByFemale() {
 
 function getStaffOptions(id) {
     $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api//api/options/"+id,
         success: function (data) {
@@ -257,6 +277,11 @@ function getStaffOptionsId(id) {
     let optionContent ="";
 
     $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/staffoption/staff/"+id,
         success: function (data) {
@@ -278,6 +303,11 @@ function showOrderStaff(staffId) {
     let currentChecker = JSON.parse(localStorage.getItem("checkers"))
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/checkers/" + currentChecker.id,
         success: function (checker) {
@@ -387,7 +417,8 @@ function submitOrder() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
         },
         url: "http://localhost:8080/api/assessments",
         type: "POST",
@@ -438,8 +469,8 @@ function submitOrder() {
             $.ajax({
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                    // 'Authorization': 'Bearer ' + currentUser.token
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token
                 },
                 type: "POST",
                 url: "http://localhost:8080/api/bills",
@@ -459,8 +490,8 @@ function submitOrder() {
                         $.ajax ({
                             headers: {
                                 'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                                // 'Authorization': 'Bearer ' + currentUser.token
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + currentUser.token
                             },
                             type: "POST",
                             url: "http://localhost:8080/api/billOptions",
@@ -470,8 +501,8 @@ function submitOrder() {
                                 $.ajax ({
                                     headers: {
                                         'Accept': 'application/json',
-                                        'Content-Type': 'application/json'
-                                        // 'Authorization': 'Bearer ' + currentUser.token
+                                        'Content-Type': 'application/json',
+                                        'Authorization': 'Bearer ' + currentUser.token
                                     },
                                     type: "GET",
                                     url: "http://localhost:8080/api/options/" + billOption.option.id,
@@ -487,8 +518,8 @@ function submitOrder() {
                     $.ajax({
                         headers: {
                             'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                            // 'Authorization': 'Bearer ' + currentUser.token
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + currentUser.token
                         },
                         type: "GET",
                         url: "http://localhost:8080/api/bills/hour/" + bill.id,
@@ -498,8 +529,8 @@ function submitOrder() {
                             $.ajax({
                                 headers: {
                                     'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                    // 'Authorization': 'Bearer ' + currentUser.token
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + currentUser.token
                                 },
                                 type: "PUT",
                                 url: "http://localhost:8080/api/bills/amount/" + bill.id +"/" + amount,
@@ -516,8 +547,8 @@ function submitOrder() {
                                         $.ajax({
                                             headers: {
                                                 'Accept': 'application/json',
-                                                'Content-Type': 'application/json'
-                                                // 'Authorization': 'Bearer ' + currentUser.token
+                                                'Content-Type': 'application/json',
+                                                'Authorization': 'Bearer ' + currentUser.token
                                             },
                                             type: "PUT",
                                             url: "http://localhost:8080/api/bills/" + bill.id,
@@ -535,8 +566,8 @@ function submitOrder() {
                                         $.ajax({
                                             headers: {
                                                 'Accept': 'application/json',
-                                                'Content-Type': 'application/json'
-                                                // 'Authorization': 'Bearer ' + currentUser.token
+                                                'Content-Type': 'application/json',
+                                                'Authorization': 'Bearer ' + currentUser.token
                                             },
                                             type: "PUT",
                                             url: "http://localhost:8080/api/accounts/" + currentUser.id,
@@ -587,6 +618,11 @@ function closeCancelledBillModal(){
 
 function getBillList2() {
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/bills/showByChecker/" + currentChecker.id,
         success: function (data) {
@@ -673,6 +709,11 @@ function createAssessment() {
     let billIdAssessment = document.getElementById("billIdAssessment").value;
 
     $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
 
         type: "GET",
         url: "http://localhost:8080/api/bills/" + billIdAssessment,
@@ -692,8 +733,8 @@ function createAssessment() {
             $.ajax({
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                    // 'Authorization': 'Bearer ' + currentUser.token
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token
                 },
                 type: "PUT",
                 url: "http://localhost:8080/api/assessments/" +bill.assessment.id,
@@ -718,6 +759,11 @@ function showTopup() {
 
 function topUp() {
     $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/accounts/" + currentUser.id,
         success: function (account) {
@@ -731,8 +777,8 @@ function topUp() {
             $.ajax ({
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                    // 'Authorization': 'Bearer ' + currentUser.token
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + currentUser.token
                 },
                 type: "PUT",
                 url: "http://localhost:8080/api/accounts/" + currentUser.id,
@@ -753,6 +799,11 @@ function topUp() {
 
 function showBalance() {
     $.ajax ({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + currentUser.token
+        },
         type: "GET",
         url: "http://localhost:8080/api/accounts/" + currentUser.id,
         success: function (data) {
@@ -775,6 +826,7 @@ function showBalance() {
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
 
 
 
