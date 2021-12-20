@@ -21,8 +21,8 @@
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="js/home.js"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-storage.js"></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
@@ -182,15 +182,15 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                            <label for="emailCheckerAccount" class="form-label">Email</label>
-                            <div class="input-group has-validation">
-                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                <input type="email" class="form-control" aria-describedby="inputGroupPrepend" required id="emailCheckerAccount" name="emailCheckerAccount">
-                                <span class="error" aria-live="polite"><p style="color: red" id="error1"></p></span>
-                                <div class="invalid-feedback">
-                                    Email is not correct.
-                                </div>
+                        <label for="emailCheckerAccount" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            <input type="email" class="form-control" aria-describedby="inputGroupPrepend" required id="emailCheckerAccount" name="emailCheckerAccount">
+                            <span class="error" aria-live="polite"><p style="color: red" id="error1"></p></span>
+                            <div class="invalid-feedback">
+                                Email is not correct.
                             </div>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="phoneCheckerAccount" class="form-label">Phone</label>
@@ -448,7 +448,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="phone2" class="form-label">Upload Ảnh</label>
-                            <input  type="file" id="photo">
+                            <input  type="file" id="photo" onchange="onChangeIsImage(event)" accept="image/*" multiple>
                         </div>
                         <div class="col-12">
                             <div class="form-check">
@@ -1108,7 +1108,7 @@
 
 
 <script>
-    myFunction();
+    // myFunction();
     (function () {
         'use strict'
 
