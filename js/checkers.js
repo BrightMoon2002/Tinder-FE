@@ -573,7 +573,7 @@ function getBillList2() {
 
 function getBillChecker2(bill) {
     let content = "";
-    if (bill.billStatus.id === 6) {
+    if (bill.billStatus.id === 4) {
         content =         `<td>\n` +
             `<button id="viewOne" class="close" data-dismiss="alert" onclick="createAssessment(this)" value="${bill.id}">\n` +
             ` <span aria-hidden="true">Assessment</span>\n` +
