@@ -575,13 +575,13 @@ function getBillChecker2(bill) {
     let content = "";
     if (bill.billStatus.id === 4) {
         content =         `<td>\n` +
-            `<button id="viewOne" class="close" data-dismiss="alert" onclick="createAssessment(this)" value="${bill.id}">\n` +
+            `<button id="viewOne" class="close" data-dismiss="alert" onclick="showCreateAssessment(`+bill.id+`)" value="${bill.id}">\n` +
             ` <span aria-hidden="true">Assessment</span>\n` +
             `</button>` +
             ` </td>\n`
     } else {
         content = `<td>\n` +
-            `<button id="viewOne" class="close" data-dismiss="alert" onclick="createAssessment(this)" value="${bill.id}" hidden>\n` +
+            `<button id="viewOne" class="close" data-dismiss="alert" onclick="showCreateAssessment(`+bill.id+`)" value="${bill.id}" hidden>\n` +
             ` <span aria-hidden="true">Assessment</span>\n` +
             `</button>` +
             ` </td>\n`
@@ -604,10 +604,58 @@ function getBillChecker2(bill) {
         '    </tr>\n'
 }
 
-function createAssessment(id) {
-    alert("hello")
+function closeModalCreatedOrderSuccessfully() {
+    $('#modalCreatedOrderSuccessfully').remove();
+    window.location.href = "/Casestudy4_Checker_Duy_FrontEnd/checkers.html"
 }
 
+function showCreateAssessment(id) {
+    document.getElementById("billIdAssessment").value = id;
+    $('#modalCreatedAssessment').modal('show');
+}
+
+function createAssessment() {
+    let billIdAssessment = document.getElementById("billIdAssessment").value;
+
+    $.ajax({
+
+        type: "GET",
+        url: "http://localhost:8080/api/bills/" + billIdAssessment,
+        success: function (bill) {
+            let assessmentContent = $('#assessmentContent').val()
+            let rate = $('#rateAssessment').val()
+
+            let assessment = {
+                id: bill.assessment.id,
+                bill: {
+                    id: billIdAssessment
+                },
+                content: assessmentContent,
+                rate: rate
+            }
+
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    // 'Authorization': 'Bearer ' + currentUser.token
+                },
+                type: "PUT",
+                url: "http://localhost:8080/api/assessments/" +bill.assessment.id,
+                data: JSON.stringify(assessment),
+                success: function (assessmentResult) {
+                    getBillList2()
+                    $('#modalCreatedAssessment').modal('hide');
+                }
+
+            })
+        }
+    })
+
+
+event.preventDefault()
+
+}
 
 
 

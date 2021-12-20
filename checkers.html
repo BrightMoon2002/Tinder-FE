@@ -484,6 +484,92 @@
     </div>
 </div>
 
+
+<div id="modalCreatedOrderSuccessfully" class="modal fade" data-backdrop="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title text-md">Message: </div> <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="p-4 text-center">
+                    <p>Please wait for out admin to verify your order!!</p>
+                </div>
+            </div>
+            <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal" onclick="closeModalCreatedOrderSuccessfully()">Close</button></div>
+        </div>
+    </div>
+</div>
+
+
+<!--<div id="modalCreatedAssessment" class="modal fade" data-backdrop="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <form class="row g-3 needs-validation" novalidate>-->
+<!--                <div class="col-md-6">-->
+<!--                    <label for="assessmentContent" class="form-label">Assessment</label>-->
+<!--                    <input type="text" class="form-control"  required id="assessmentContent" name="assessmentContent" >-->
+<!--                </div>-->
+<!--                <input type="hidden" id="billIdAssessment">-->
+<!--                <div class="col-md-6">-->
+<!--                    <label for="rateAssessment">Rate</label>-->
+<!--                    <select id="rateAssessment">-->
+<!--                        <option value="5">5</option>-->
+<!--                        <option value="4">4</option>-->
+<!--                        <option value="3">3</option>-->
+<!--                        <option value="2">2</option>-->
+<!--                        <option value="1">1</option>-->
+<!--                        <option value="0">0</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--                <div class="col-12">-->
+<!--                    <button class="btn btn-primary" type="submit" onclick="createAssessment()">Submit form</button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="modalCreatedAssessment" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleCheckerOrderForm">Bill Assessment</h5>
+            </div>
+            <!-- body -->
+            <div class="modal-body">
+                <input type="hidden" id="billIdAssessment">
+                <form class="row g-3 needs-validation" novalidate>
+                    <div class="col-md-6">
+                        <label for="assessmentContent" class="form-label">Content</label>
+                        <input type="text" class="form-control"  required id="assessmentContent" name="usernameCheckerAccount">
+                        <span style="color: red" id="error2" class="error" aria-live="polite"></span>
+                        <div class="invalid-feedback">
+                            Please provide a valid username or already exist.
+                        </div>
+                    </div>
+                    <div>
+                    <label for="rateAssessment">Rate</label>
+                    <select id="rateAssessment">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="0">0</option>
+                    </select>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit" onclick="createAssessment()">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-------------------------------->
 
 
